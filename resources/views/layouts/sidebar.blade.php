@@ -34,7 +34,7 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
-               <li>
+                <li>
                     <a href="javascript: void(0);">
                         <i class="bx bx-home-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-dashboard">Dashboard</span>
@@ -45,6 +45,104 @@
                         <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
                     </ul>
                 </li>
+
+                <li class="menu-title" data-key="t-applications">Administracion</li>
+
+                <li>
+                    <a href="apps-calendar">
+                        <i class="bx bx-group icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-calendar">Roles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apps-calendar">
+                        <i class="bx bx-shield-quarter icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-calendar">Permisos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apps-calendar">
+                        <i class="bx bx-user icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-calendar">Usuarios</span>
+                    </a>
+                </li>
+
+                <li class="menu-title" data-key="t-applications">Mi Gestion</li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa fa-user-tie icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-email">Mis Clientes</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa fa-search icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-email">Mis Auditorias PESV</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa fa-tasks icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-email">Mis Planes de Mejora PESV</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa fa-diagnoses icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-email">Mis Diagnosticos PESV</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="fa fa-project-diagram icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-email">Mis Planes de Trabajo PESV</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-title" data-key="t-applications">Mis Reportes</li>
+                <li>
+                    <a href="apps-calendar">
+                        <i class="fa fa-file-alt icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-calendar">Historicos Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apps-calendar">
+                        <i class="fa fa-chart-bar icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-calendar">Historicos Auditorias</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apps-calendar">
+                        <i class="fa fa-chart-line icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-calendar">Historicos Diagnosticos</span>
+                    </a>
+                </li>
+
 
                 <li class="menu-title" data-key="t-applications">Applications</li>
 
@@ -106,7 +204,7 @@
                     </ul>
                 </li>
 
-               
+
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -132,7 +230,7 @@
                 </li>
 
                 <li class="menu-title" data-key="t-layouts">Layouts</li>
-                
+
                 <li>
                     <a href="layouts-horizontal">
                         <i class="bx bx-layout icon nav-icon"></i>
@@ -251,8 +349,10 @@
                         <li><a href="auth-lock-screen" data-key="t-lock-screen">Lock Screen</a></li>
                         <li><a href="auth-logout" data-key="t-logout">Logout</a></li>
                         <li><a href="auth-confirm-mail" data-key="t-confirm-mail">Confirm Mail</a></li>
-                        <li><a href="auth-email-verification" data-key="t-email-verification">Email Verification</a></li>
-                        <li><a href="auth-two-step-verification" data-key="t-two-step-verification">Two Step Verification</a></li>
+                        <li><a href="auth-email-verification" data-key="t-email-verification">Email Verification</a>
+                        </li>
+                        <li><a href="auth-two-step-verification" data-key="t-two-step-verification">Two Step
+                                Verification</a></li>
                     </ul>
                 </li>
 
