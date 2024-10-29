@@ -36,63 +36,7 @@
 
         <div class="d-flex">
 
-            <div class="dropdown d-inline-block language-switch ms-2">
-                <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <img class="header-lang-img" src="{{ URL::asset('build/images/flags/us.jpg') }}"
-                        alt="Header Language" height="18">
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="eng">
-                        <img src="{{ URL::asset('build/images/flags/us.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">English</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
-                        <img src="{{ URL::asset('build/images/flags/spain.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr">
-                        <img src="{{ URL::asset('build/images/flags/germany.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it">
-                        <img src="{{ URL::asset('build/images/flags/italy.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru">
-                        <img src="{{ URL::asset('build/images/flags/russia.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">Russian</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="bx bx-search icon-sm align-middle"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0">
-                    <form class="p-2">
-                        <div class="search-box">
-                            <div class="position-relative">
-                                <input type="text" class="form-control rounded bg-light border-0"
-                                    placeholder="Search...">
-                                <i class="bx bx-search search-icon"></i>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown-v"
@@ -193,34 +137,31 @@
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">Martin Gurley</span>
+                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">Alejandro Gomez</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="p-3 border-bottom">
-                        <h6 class="mb-0">Martin Gurley</h6>
-                        <p class="mb-0 font-size-11 text-muted">martin.gurley@email.com</p>
+                        <h6 class="mb-0">Alejandro Gomez</h6>
+                        <p class="mb-0 font-size-11 text-muted">alejandro.gomez@email.com</p>
                     </div>
                     <a class="dropdown-item" href="contacts-profile"><i
                             class="mdi mdi-account-circle text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Profile</span></a>
-                    <a class="dropdown-item" href="apps-chat"><i
-                            class="mdi mdi-message-text-outline text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Messages</span></a>
+                            class="align-middle">Perfil</span></a>
+
                     <a class="dropdown-item" href="pages-faqs"><i
                             class="mdi mdi-lifebuoy text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Help</span></a>
+                            class="align-middle">Ayuda</span></a>
                     <a class="dropdown-item d-flex align-items-center" href="#"><i
                             class="mdi mdi-cog-outline text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle me-3">Settings</span><span
-                            class="badge badge-soft-success ms-auto">New</span></a>
+                            class="align-middle me-3">Configuraciones</span></a>
                     <a class="dropdown-item" href="auth-lock-screen"><i
                             class="mdi mdi-lock text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Lock screen</span></a>
+                            class="align-middle">Bloquear</span></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="javascript:void();"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                             class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Logout</span></a>
+                            class="align-middle">Cerrar Sesión</span></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>

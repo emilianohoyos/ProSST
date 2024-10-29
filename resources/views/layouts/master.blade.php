@@ -47,10 +47,31 @@
 <!-- END layout-wrapper -->
 
 <!-- customizer -->
-@include('layouts.right-sidebar')
+{{-- @include('layouts.right-sidebar') --}}
 
 <!-- vendor-scripts -->
 @include('layouts.vendor-scripts')
+<!-- Botón flotante para abrir el chatbot -->
+<div class="chatbot-toggle-btn" onclick="toggleChatbot()">💬</div>
+
+<!-- Contenedor del chatbot flotante -->
+<div class="chatbot-widget bg-light shadow" id="chatbotWidget">
+    <div class="chatbot-header">
+        <span>Chatbot</span>
+        <div>
+            <button onclick="minimizeChatbot()">_</button>
+            <button onclick="closeChatbot()">✖</button>
+        </div>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <!-- Mensajes del chat aparecerán aquí -->
+    </div>
+
+    <div class="chatbot-input">
+        <input type="text" id="userInput" class="form-control" placeholder="Escribe un mensaje...">
+        <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+    </div>
+</div>
 
 </body>
 

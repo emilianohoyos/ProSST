@@ -508,14 +508,14 @@ File: Main Js File
                         (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', 'light');
                         updateRadio('topbar-color-light');
                         updateRadio('sidebar-color-light');
-                    } else if(e.target.value == "dark"){
+                    } else if (e.target.value == "dark") {
                         document.body.setAttribute('data-layout-mode', 'dark');
                         document.body.setAttribute('data-topbar', 'dark');
                         document.body.setAttribute('data-sidebar', 'dark');
                         (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") ? '' : document.body.setAttribute('data-sidebar', 'dark');
                         updateRadio('topbar-color-dark');
                         // updateRadio('sidebar-color-dark');
-                    } else if(e.target.value == "bordered") {
+                    } else if (e.target.value == "bordered") {
                         document.body.setAttribute('data-layout-mode', 'bordered');
                     }
                 }

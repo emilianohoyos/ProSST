@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +19,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->withoutMiddleware(['auth']);
+Route::resource('client', ClientController::class);
+Route::resource('audit', AuditController::class);
+Route::get('assessment', [AuditController::class, 'assessment'])->name('audit.assessment');
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index')->withoutMiddleware(['auth']);

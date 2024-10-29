@@ -46,47 +46,47 @@
                     </ul>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Administracion</li>
+                <li class="menu-title" data-key="t-administration">Administracion</li>
 
                 <li>
                     <a href="apps-calendar">
                         <i class="bx bx-group icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-calendar">Roles</span>
+                        <span class="menu-item" data-key="t-rol">Roles</span>
                     </a>
                 </li>
                 <li>
                     <a href="apps-calendar">
                         <i class="bx bx-shield-quarter icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-calendar">Permisos</span>
+                        <span class="menu-item" data-key="t-permission">Permisos</span>
                     </a>
                 </li>
                 <li>
                     <a href="apps-calendar">
                         <i class="bx bx-user icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-calendar">Usuarios</span>
+                        <span class="menu-item" data-key="t-users">Usuarios</span>
                     </a>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Mi Gestion</li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
+                <li class="menu-title" data-key="t-management">Mi Gestión</li>
+                <li data-key="t-client-menu">
+                    <a href="javascript: void(0);" class="has-arrow" data-key="t-client-link">
                         <i class="fa fa-user-tie icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Mis Clientes</span>
+                        <span class="menu-item" data-key="t-clients">Mis Clientes</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                    <ul class="sub-menu" aria-expanded="false" data-key="t-client">
+                        <li><a href="{{ route('client.create') }}" data-key="t-crear">Crear</a></li>
+                        <li><a href="{{ route('client.index') }}" data-key="t-consultar">Consultar</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa fa-search icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Mis Auditorias PESV</span>
+                        <span class="menu-item" data-key="t-audit">Mis Auditorias PESV</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                        <li><a href="{{ route('audit.create') }}" data-key="t-inbox">Crear</a></li>
+                        <li><a href="{{ route('audit.index') }}" data-key="t-read-email">Consultar</a></li>
                     </ul>
                 </li>
 
@@ -144,7 +144,7 @@
                 </li>
 
 
-                <li class="menu-title" data-key="t-applications">Applications</li>
+                {{-- <li class="menu-title" data-key="t-applications">Applications</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -388,7 +388,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
         </div>
