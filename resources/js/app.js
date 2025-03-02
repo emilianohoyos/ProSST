@@ -11,6 +11,7 @@ File: Main Js File
 (function () {
 
     'use strict';
+    console.log('ssdfsf');
 
     var language = localStorage.getItem('language');
     // Default Language
@@ -91,7 +92,7 @@ File: Main Js File
         // MetisMenu js
         document.addEventListener("DOMContentLoaded", function (event) {
             if (document.getElementById("side-menu"))
-                new MetisMenu('#side-menu');
+                new MetisMenu('#side-menu', { toggle: true });
         });
     }
 
@@ -188,24 +189,48 @@ File: Main Js File
         }, 0);
     }
 
-    function initMenuItemScroll() {
-        setTimeout(function () {
-            var sidebarMenu = document.getElementById("side-menu");
-            if (sidebarMenu) {
-                var activeMenu = sidebarMenu.querySelector(".mm-active .active");
-                var offset = (activeMenu) ? activeMenu.offsetTop : 0;
-                if (offset > 300) {
-                    offset = offset - 100;
-                    var verticalMenu = (document.getElementsByClassName("vertical-menu")) ? document.getElementsByClassName("vertical-menu")[0] : '';
-                    if (verticalMenu && verticalMenu.querySelector(".simplebar-content-wrapper")) {
-                        setTimeout(function () {
-                            verticalMenu.querySelector(".simplebar-content-wrapper").scrollTop = offset;
-                        }, 0);
+    // function initMenuItemScroll() {
+    //     setTimeout(function () {
+    //         var sidebarMenu = document.getElementById("side-menu");
+    //         if (sidebarMenu) {
+    //             var activeMenu = sidebarMenu.querySelector(".mm-active .active");
+    //             var offset = (activeMenu) ? activeMenu.offsetTop : 0;
+    //             if (offset > 300) {
+    //                 offset = offset - 100;
+    //                 var verticalMenu = (document.getElementsByClassName("vertical-menu")) ? document.getElementsByClassName("vertical-menu")[0] : '';
+    //                 if (verticalMenu && verticalMenu.querySelector(".simplebar-content-wrapper")) {
+    //                     setTimeout(function () {
+    //                         verticalMenu.querySelector(".simplebar-content-wrapper").scrollTop = offset;
+    //                     }, 0);
+    //                 }
+    //             }
+    //         }
+    //     }, 0);
+    // }
+    function initActiveMenu() {
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuItems = document.querySelectorAll("#sidebar-menu a");
+            const pageUrl = window.location.href.split(/[?#]/)[0];
+
+            menuItems.forEach(item => {
+                if (item.href === pageUrl) {
+                    item.classList.add("active");
+
+                    // Itera hacia arriba en la jerarquía de elementos aplicando clases
+                    let parentElement = item.parentElement;
+                    while (parentElement && parentElement.id !== "side-menu") {
+                        if (parentElement.tagName === "LI") {
+                            parentElement.classList.add("mm-active");
+                        } else if (parentElement.tagName === "UL") {
+                            parentElement.classList.add("mm-show");
+                        }
+                        parentElement = parentElement.parentElement;
                     }
                 }
-            }
-        }, 0);
+            });
+        });
     }
+
 
     function initHoriMenuActive() {
 
@@ -367,7 +392,7 @@ File: Main Js File
         var body = document.getElementsByTagName("body")[0];
         if (body.hasAttribute("data-layout") && body.getAttribute("data-layout") == "horizontal") {
             updateRadio("layout-horizontal");
-            document.getElementById("sidebar-setting").style.display = "none";
+            // document.getElementById("sidebar-setting").style.display = "none";
             document.getElementsByClassName("vertical-menu")[0].style.display = "none";
             document.getElementsByClassName("ishorizontal-topbar")[0].style.display = "block";
             document.getElementsByClassName("isvertical-topbar")[0].style.display = "none";
@@ -444,13 +469,13 @@ File: Main Js File
                 document.body.setAttribute("data-topbar", "dark");
             }
 
-            document.getElementById('sidebar-setting').style.display = "none";
+            // document.getElementById('sidebar-setting').style.display = "none";
             document.body.removeAttribute("data-sidebar");
 
             //    (body.hasAttribute("data-topbar") ? body.removeAttribute("data-topbar") : body.setAttribute("data-topbar", ""));
         } else {
             updateRadio('layout-vertical');
-            document.getElementById('sidebar-setting').style.display = "block";
+            // document.getElementById('sidebar-setting').style.display = "block";
         }
         (body.hasAttribute("data-layout-mode") && body.getAttribute("data-layout-mode") == "dark") ? updateRadio('layout-mode-dark') : updateRadio('layout-mode-light');
         (body.hasAttribute("data-layout-size") && body.getAttribute("data-layout-size") == "boxed") ? updateRadio('layout-width-boxed') : updateRadio('layout-width-fluid');
@@ -471,7 +496,7 @@ File: Main Js File
                     document.getElementsByClassName("isvertical-topbar")[0].style.display = "block";
                     document.getElementsByClassName("ishorizontal-topbar")[0].style.display = "none";
                     document.getElementsByClassName("vertical-menu")[0].style.display = "block";
-                    document.getElementById("sidebar-setting").style.display = "block";
+                    // document.getElementById("sidebar-setting").style.display = "block";
                     document.getElementsByClassName("topnav")[0].style.display = "none";
                     if (window.innerWidth <= 992) {
                         document.getElementsByClassName("vertical-menu")[0].removeAttribute('style');
@@ -484,7 +509,7 @@ File: Main Js File
                     document.body.setAttribute('data-topbar', 'light');
                     document.body.setAttribute("data-layout", "horizontal");
                     document.body.removeAttribute("data-sidebar");
-                    document.getElementById("sidebar-setting").style.display = "none";
+                    // document.getElementById("sidebar-setting").style.display = "none";
                     document.getElementsByClassName("vertical-menu")[0].style.display =
                         "none";
                     document.getElementsByClassName("ishorizontal-topbar")[0].style.display = "block";
@@ -568,6 +593,7 @@ File: Main Js File
         layoutSetting();
         initMenuItemScroll();
         initCheckAll();
+        console.log('este es');
     }
 
     init();

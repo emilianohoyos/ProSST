@@ -35,69 +35,59 @@
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="javascript: void(0);">
+                    <a href="../index">
                         <i class="bx bx-home-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-dashboard">Dashboard</span>
                         <span class="badge rounded-pill bg-primary">2</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
-                        <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
-                    </ul>
                 </li>
 
                 <li class="menu-title" data-key="t-administration">Administracion</li>
-
                 <li>
-                    <a href="apps-calendar">
-                        <i class="bx bx-group icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-rol">Roles</span>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="mdi mdi-account-cog icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-email">Administrador.</span>
                     </a>
-                </li>
-                <li>
-                    <a href="apps-calendar">
-                        <i class="bx bx-shield-quarter icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-permission">Permisos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="apps-calendar">
-                        <i class="bx bx-user icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-users">Usuarios</span>
-                    </a>
-                </li>
-
-                <li class="menu-title" data-key="t-management">Mi Gestión</li>
-                <li data-key="t-client-menu">
-                    <a href="javascript: void(0);" class="has-arrow" data-key="t-client-link">
-                        <i class="fa fa-user-tie icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-clients">Mis Clientes</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false" data-key="t-client">
-                        <li><a href="{{ route('client.create') }}" data-key="t-crear">Crear</a></li>
-                        <li><a href="{{ route('client.index') }}" data-key="t-consultar">Consultar</a></li>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('roles.index') }}" data-key="t-inbox">Roles</a></li>
+                        <li><a href="{{ route('permissions.index') }}" data-key="t-inbox">Permisos</a></li>
+                        <li><a href="{{ route('users.index') }}" data-key="t-read-emails">Usuarios</a></li>
                     </ul>
                 </li>
+                <li class="menu-title" data-key="t-management">Mi Gestión</li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow" data-key="t-client-link">
+                        <i class="fa fa-user-tie icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-ecommerce">Mis Clientes</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('client.create') }}" data-key="t-products">Crear</a></li>
+                        <li><a href="{{ route('client.index') }}" data-key="t-product-detail">Consultar</a></li>
+                    </ul>
+                </li>
+
+
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa fa-search icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-audit">Mis Auditorias PESV</span>
+                        <span class="menu-item" data-key="t-ui-elements">Mis Auditorias PESV</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('audit.create') }}" data-key="t-inbox">Crear</a></li>
-                        <li><a href="{{ route('audit.index') }}" data-key="t-read-email">Consultar</a></li>
+                        <li><a href="{{ route('audit.create') }}" data-key="t-alerts">Crear</a></li>
+                        <li><a href="{{ route('audit.index') }}" data-key="t-buttons">Consultar</a></li>
                     </ul>
                 </li>
+
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="fa fa-tasks icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Mis Planes de Mejora PESV</span>
+                        <span class="menu-item" data-key="t-plan">Mis Planes de Mejora PESV</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                        <li><a href="email-inbox" data-key="t-plan-crear">Crear</a></li>
+                        <li><a href="email-read" data-key="t-planes">Consultar</a></li>
                     </ul>
                 </li>
 
@@ -144,7 +134,7 @@
                 </li>
 
 
-                {{-- <li class="menu-title" data-key="t-applications">Applications</li>
+                <li class="menu-title" data-key="t-applications">Applications</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -388,7 +378,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
 
             </ul>
         </div>
