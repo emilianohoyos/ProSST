@@ -27,7 +27,7 @@
                                 </p>
                             </div>
                             <div class="col-md-2 ">
-                                <a href="{{ route('admin.roles.index') }}" type="button"
+                                <a href="{{ route('roles.index') }}" type="button"
                                     class="btn btn-primary waves-effect w-full waves-light">Ver Roles
                                     Rol</a>
                             </div>
@@ -44,7 +44,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form method="POST" action="{{ route('admin.roles.update', $role) }}">
+                            <form method="POST" action="{{ route('roles.update', $role) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-4">
@@ -113,7 +113,7 @@
                             @endif
                             @forelse ($role->permissions as $role_permission)
                                 <form method="POST"
-                                    action="{{ route('admin.roles.permissions.revoke', [$role->id, $role_permission->name]) }}"
+                                    action="{{ route('roles.permissions.revoke', [$role->id, $role_permission->name]) }}"
                                     class="d-inline-block"
                                     onsubmit="return confirm('Esta Seguro De Remover el permiso {{ $role_permission->name }}?');">
                                     @csrf
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="col-md-12 mt-5">
-                            <form method="POST" action="{{ route('admin.roles.permissions', $role->id) }}">
+                            <form method="POST" action="{{ route('roles.permissions', $role->id) }}">
                                 @csrf
                                 <div class="row mb-4">
                                     <label for="name" class="col-sm-3 col-form-label">Permiso</label>

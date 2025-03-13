@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DocumentType;
+use App\Models\PersonType;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -41,6 +43,13 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        $document_type = DocumentType::all();
+        $person_type = PersonType::all();
+        return view('admin.users.create', compact('document_type', 'person_type'));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -65,9 +74,18 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['password']), // Cambia la contraseña según necesites
+            'document_type_id' => $data['document_type_id'], // Ajusta según tu BD
+            'person_type_id' => $data['person_type_id'], // Ajusta según tu BD
+            'country' => $data['country'],
+            'department' => $data['department'],
+            'city' => $data['city'],
+            'address' => $data['address']
+
         ]);
     }
 }

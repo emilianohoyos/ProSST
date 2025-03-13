@@ -21,11 +21,15 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('document_type_id')->constrained()->onDelete('cascade');
+            $table->string('identification');
             $table->foreignId('person_type_id')->constrained()->onDelete('cascade');
-            $table->string('country');
+            $table->string('cellphone');
             $table->string('department');
             $table->string('city');
+            $table->string('neighborhood');
             $table->string('address');
+
+            $table->string('professional_card');
             $table->rememberToken();
             $table->timestamps();
         });

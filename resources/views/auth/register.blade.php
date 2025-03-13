@@ -37,6 +37,20 @@
                                             @csrf
 
                                             <div class="row">
+                                                <div class="col md-6">
+                                                    <div class="mb-3">
+                                                        <label for="document_type_id" class="form-label">Tipo Documento<span
+                                                                class="text-danger">*</span></label>
+                                                        <select name="document_type_id" id="document_type_id"
+                                                            class="form-control">
+                                                            @foreach ($document_type as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Identificacion <span
@@ -53,15 +67,33 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="name" class="form-label">Ingrese Nombres <span
+                                                        <label for="first_name" class="form-label">Ingrese nombres <span
                                                                 class="text-danger">*</span></label>
-                                                        <input id="name" type="text"
-                                                            class="form-control @error('name') is-invalid @enderror"
-                                                            name="name" value="{{ old('name') }}" required
-                                                            autocomplete="name" autofocus placeholder="Ingrese nombres">
-                                                        @error('name')
+                                                        <input id="first_name" type="text"
+                                                            class="form-control @error('first_name') is-invalid @enderror"
+                                                            name="first_name" value="{{ old('first_name') }}" required
+                                                            autocomplete="first_name" autofocus
+                                                            placeholder="Ingrese nombres">
+                                                        @error('first_name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="last_name" class="form-label">Ingrese apellidos <span
+                                                                class="text-danger">*</span></label>
+                                                        <input id="last_name" type="text"
+                                                            class="form-control @error('last_name') is-invalid @enderror"
+                                                            name="last_name" value="{{ old('last_name') }}" required
+                                                            autocomplete="last_name" autofocus
+                                                            placeholder="Ingrese nombres">
+                                                        @error('last_name')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -70,6 +102,33 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                <div class="col md-6">
+                                                    <div class="mb-3">
+                                                        <label for="person_type_id" class="form-label">Tipo persona<span
+                                                                class="text-danger">*</span></label>
+                                                        <select name="person_type_id" id="person_type_id"
+                                                            class="form-control">
+                                                            @foreach ($person_type as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="email" class="form-label">Correo<span
+                                                            class="text-danger">*</span></label>
+                                                    <input id="email" type="email"
+                                                        class="form-control @error('email') is-invalid @enderror"
+                                                        name="email" value="{{ old('email') }}" required
+                                                        autocomplete="email" placeholder="Ingrese Correo">
+                                                    @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Celular <span
@@ -88,39 +147,6 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="name" class="form-label">Fecha Nacimiento<span
-                                                                class="text-danger">*</span></label>
-                                                        <input id="birth_date" type="date"
-                                                            class="form-control @error('birth_date') is-invalid @enderror"
-                                                            name="birth_date" value="{{ old('birth_date') }}" required
-                                                            autocomplete="birth_date" autofocus
-                                                            placeholder="Ingrese Fecha nacimiento">
-                                                        @error('birth_date')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="email" class="form-label">Correo<span
-                                                            class="text-danger">*</span></label>
-                                                    <input id="email" type="email"
-                                                        class="form-control @error('email') is-invalid @enderror"
-                                                        name="email" value="{{ old('email') }}" required
-                                                        autocomplete="email" placeholder="Ingrese Correo">
-                                                    @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
                                                         <label for="email" class="form-label">Numero tarjeta
                                                             profesional<span class="text-danger">*</span></label>
                                                         <input id="email" type="email"
@@ -135,6 +161,10 @@
                                                     </div>
 
                                                 </div>
+                                            </div>
+                                            <div class="row">
+
+
 
                                             </div>
 
@@ -180,7 +210,22 @@
 
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="address" class="form-label">Dirección<span
+                                                                class="text-danger">*</span></label>
+                                                        <input id="address" type="address"
+                                                            class="form-control @error('address') is-invalid @enderror"
+                                                            name="address" value="{{ old('address') }}" required
+                                                            autocomplete="address" placeholder="Ingrese dirección">
+                                                        @error('address')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
 
+                                                </div>
                                             </div>
 
 
@@ -216,23 +261,23 @@
 
 
 
-                                            <div>
+                                            {{-- <div>
                                                 <p class="mb-0">Al registrar acepta nuestros terminos y condiciones
                                                     <a href="#" class="text-primary">Terminos y Condiciones</a>
                                                 </p>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Registrar</button>
+                                                <button class="btn btn-primary w-100" type="submit">Crear</button>
                                             </div>
 
 
 
 
-                                            <div class="mt-4 text-center">
+                                            {{-- <div class="mt-4 text-center">
                                                 <p class="mb-0">Tiene una Cuenta? <a href="{{ route('login') }}"
                                                         class="fw-medium text-primary"> Inicio de sesion</a></p>
-                                            </div>
+                                            </div> --}}
                                         </form>
                                     </div>
 

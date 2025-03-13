@@ -33,7 +33,7 @@ class PermissionController extends Controller
         ]);
 
         Permission::create($validated);
-        return to_route('admin.permissions.index')->with(['message' => 'Se ha Creado el Permiso correctamente!']);;
+        return to_route('permissions.index')->with(['message' => 'Se ha Creado el Permiso correctamente!']);;
     }
 
     /**
@@ -63,7 +63,7 @@ class PermissionController extends Controller
         ]);
 
         $permission->update($validated);
-        return to_route('admin.permissions.index')->with(['message' => 'Se ha Actualizado el Permiso correctamente!']);
+        return to_route('permissions.index')->with(['message' => 'Se ha Actualizado el Permiso correctamente!']);
     }
 
     /**
@@ -72,7 +72,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return to_route('admin.permissions.index')->with(['message' => 'Se ha Eliminado el Permiso correctamente!']);
+        return to_route('permissions.index')->with(['message' => 'Se ha Eliminado el Permiso correctamente!']);
     }
 
     public function assignRole(Request $request, Permission $permission)

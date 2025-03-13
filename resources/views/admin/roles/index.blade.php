@@ -46,6 +46,7 @@
                                     aria-label="Close"></button>
                             </div>
                         @endif
+
                         <div class="table-responsive">
                             <table class="table mb-0">
                                 <thead>
@@ -58,20 +59,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($permissions)
-                                        @foreach ($permissions as $permission)
+                                    @isset($roles)
+                                        @foreach ($roles as $rol)
                                             <tr>
-                                                <th scope="row">{{ $permission->id }}</th>
-                                                <td>{{ $permission->name }}</td>
-                                                <td>{{ $permission->created_at }}</td>
+                                                <th scope="row">{{ $rol->id }}</th>
+                                                <td>{{ $rol->name }}</td>
+                                                <td>{{ $rol->created_at }}</td>
                                                 <td>
-                                                    <a href="{{ route('permissions.edit', $permission->id) }}" type="button"
+                                                    <a href="{{ route('roles.edit', $rol->id) }}" type="button"
                                                         class="btn btn-success w-xs waves-effect waves-light d-inline-block"><i
                                                             class="mdi mdi-pencil d-block font-size-16"></i></a>
-                                                    <form method="POST"
-                                                        action="{{ route('permissions.destroy', $permission->id) }}"
+                                                    <form method="POST" action="{{ route('roles.destroy', $rol->id) }}"
                                                         class="d-inline-block"
-                                                        onsubmit="return confirm('Esta Seguro De eliminar el Permiso {{ $permission->name }}?');">
+                                                        onsubmit="return confirm('Esta Seguro De eliminar el Permiso {{ $rol->name }}?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"

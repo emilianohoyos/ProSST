@@ -15,6 +15,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::paginate(10);
+
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -35,8 +36,13 @@ class RoleController extends Controller
             'name' => ['required', 'min:3']
         ]);
 
-        Role::create($validated);
-        return to_route('admin.roles.index')->with(['message' => 'Se ha Creado el rol correctamente!']);;
+        $role = Role::firstOrCreate($validated);
+
+        if ($role->wasRecentlyCreated) {
+            return to_route('roles.index')->with(['message' => 'Se ha Creado el rol correctamente!']);
+        }
+
+        return to_route('roles.index')->with(['message' => "Ya Existe El rol $request->name ha Creado el rol correctamente!"]);
     }
 
     /**
@@ -74,7 +80,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return to_route('admin.roles.index')->with(['message' => 'Se ha Eliminado el rol correctamente!']);
+        return to_route('roles.index')->with(['message' => 'Se ha Eliminado el rol correctamente!']);
     }
 
     public function givePermission(Request $request, Role $role)
