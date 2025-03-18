@@ -34,76 +34,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>
+                                    @foreach ($clients as $item)
+                                        <tr>
+                                            <th scope="row">{{ $item->id }}</th>
+                                            <td>{{ $item->identification }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                    data-bs-placement="top" title="ver" data-bs-toggle="modal"
+                                                    data-bs-target=".bs-example-modal-lg">
+                                                    <i class="fa fa-eye font-size-16 "></i>
+                                                </button>
+                                                <button type="button" data-bs-placement="top" title="Editar"
+                                                    onclick="editarModal({{ $item->client_user_id }})"
+                                                    class="btn btn-warning waves-effect waves-light">
+                                                    <i class="fa fa-pen font-size-16 "></i>
+                                                </button>
+                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Eliminar" class="btn btn-danger waves-effect waves-light"
+                                                    onclick="confirmDelete(event)">
+                                                    <i class="fa fa-trash font-size-16 "></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-
-                                            <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                data-bs-placement="top" title="ver" data-bs-toggle="modal"
-                                                data-bs-target=".bs-example-modal-lg">
-                                                <i class="fa fa-eye font-size-16 "></i>
-                                            </button>
-                                            <button type="button" data-bs-placement="top" title="Editar"
-                                                data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"
-                                                class="btn btn-warning waves-effect waves-light">
-                                                <i class="fa fa-pen font-size-16 "></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Eliminar" class="btn btn-danger waves-effect waves-light"
-                                                onclick="confirmDelete(event)">
-                                                <i class="fa fa-trash font-size-16 "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                data-bs-placement="top" title="ver" data-bs-toggle="modal"
-                                                data-bs-target=".bs-example-modal-lg">
-                                                <i class="fa fa-eye font-size-16 "></i>
-                                            </button>
-                                            <button type="button" data-bs-placement="top" title="Editar"
-                                                data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"
-                                                class="btn btn-warning waves-effect waves-light">
-                                                <i class="fa fa-pen font-size-16 "></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Eliminar" class="btn btn-danger waves-effect waves-light"
-                                                onclick="confirmDelete(event)">
-                                                <i class="fa fa-trash font-size-16 "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                data-bs-placement="top" title="ver" data-bs-toggle="modal"
-                                                data-bs-target=".bs-example-modal-lg">
-                                                <i class="fa fa-eye font-size-16 "></i>
-                                            </button>
-                                            <button type="button" data-bs-placement="top" title="Editar"
-                                                data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg"
-                                                class="btn btn-warning waves-effect waves-light">
-                                                <i class="fa fa-pen font-size-16 "></i>
-                                            </button>
-                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Eliminar" class="btn btn-danger waves-effect waves-light"
-                                                onclick="confirmDelete(event)">
-                                                <i class="fa fa-trash font-size-16 "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
+                            <br>
+                            <!-- Enlaces de paginación -->
+                            {{ $clients->links('pagination::bootstrap-5') }}
                         </div>
 
                     </div>
@@ -112,36 +72,96 @@
 
 
         </div>
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-            style="display: none;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myLargeModalLabel">Ver/editar Detalle Cliente</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @include('clients.form')
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
+        @include('clients.modal.edit')
     @endsection
     @section('scripts')
         <script>
-            function confirmDelete(event) {
-                // Previene la acción predeterminada del botón
-                event.preventDefault();
+            const myModal = new bootstrap.Modal(document.getElementById('editModal'));
 
-                // Muestra una ventana de confirmación
-                if (confirm("¿Desea eliminar este elemento?")) {
-                    // Acción de eliminación aquí
-                    console.log("Elemento eliminado");
-                    // Aquí puedes agregar la lógica de eliminación
-                } else {
-                    console.log("Eliminación cancelada");
-                }
+            function editarModal(client_user_id) {
+                fetch('client-users/' + client_user_id)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        document.getElementById('client_user_id').value = data[0].client_user_id;
+                        document.getElementById('client_id').value = data[0].client_id;
+                        document.getElementById('name').value = data[0].name;
+                        document.getElementById('identification').value = data[0].identification;
+                        document.getElementById('document_type_id').value = data[0].document_type_id.toString();
+                        document.getElementById('person_type_id').value = data[0].person_type_id.toString();
+                        document.getElementById('email').value = data[0].email.toString();
+                        document.getElementById('headquarters').value = data[0].headquarters.toString();
+                        document.getElementById('representative').value = data[0].representative.toString();
+
+                    });
+
+                myModal.show();
             }
+
+            function actualizarDatos() {
+                event.preventDefault();
+                let client_user_id = document.getElementById('client_user_id').value
+                // const url = `/client/${client_user_id}`;
+                const form = document.getElementById('editClientForm');
+                const formData = new FormData(form);
+                console.log(formData);
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: '¿Deseas actualizar los datos del cliente?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, actualizar',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`client-users-update/${client_user_id}`, {
+                                method: 'POST', // o 'PATCH'
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                },
+                                body: formData
+                            })
+
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data)
+
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: "se ha actualizado el cliente",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                myModal.hide();
+                                window.location.reload();
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                })
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+
+
+
+                function confirmDelete(event) {
+                    // Previene la acción predeterminada del botón
+                    event.preventDefault();
+
+                    // Muestra una ventana de confirmación
+                    if (confirm("¿Desea eliminar este elemento?")) {
+                        // Acción de eliminación aquí
+                        console.log("Elemento eliminado");
+                        // Aquí puedes agregar la lógica de eliminación
+                    } else {
+                        console.log("Eliminación cancelada");
+                    }
+                }
+            });
         </script>
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection

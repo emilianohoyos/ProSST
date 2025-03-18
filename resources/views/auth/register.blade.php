@@ -32,6 +32,16 @@
                                         <h5>Registro Usuario</h5>
 
                                     </div>
+                                    @if ($errors->any())
+                                        <div style="color: red;">
+                                            <strong>Por favor corrige los siguientes errores:</strong>
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('register') }}" class="auth-input">
                                             @csrf

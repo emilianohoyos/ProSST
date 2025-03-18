@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pesv_assessment_id')->constrained()->onDelete('cascade');
             $table->foreignId('pesv_question_id')->constrained()->onDelete('cascade');
-            $table->text('analysis_cause');
+            $table->foreignId('pesv_cause_improvement_plan_id')->constrained()->onDelete('cascade');
             $table->boolean('action_was_effective');
             $table->string('state_action');
             $table->text('people_to_be_informed');
@@ -32,6 +32,7 @@ return new class extends Migration
         Schema::table('pesv_improvement_plan_answers', function (Blueprint $table) {
             $table->dropForeign(['pesv_assessment_id']);
             $table->dropForeign(['pesv_question_id']);
+            $table->dropForeign(['pesv_cause_improvement_plan_id']);
         });
         Schema::dropIfExists('pesv_improvement_plan_answers');
     }

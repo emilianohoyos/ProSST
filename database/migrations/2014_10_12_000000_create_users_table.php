@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('city');
             $table->string('neighborhood');
             $table->string('address');
-
             $table->string('professional_card');
             $table->rememberToken();
             $table->timestamps();

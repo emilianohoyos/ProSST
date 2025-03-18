@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DocumentType;
+use App\Models\PersonType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -48,9 +50,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $document_type = DocumentType::all();
+        $person_type = PersonType::all();
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('admin.users.role', compact('user', 'roles', 'permissions'));
+        return view('admin.users.role', compact('user', 'roles', 'document_type', 'person_type', 'permissions'));
     }
 
     /**
@@ -91,14 +95,13 @@ class UserController extends Controller
 
     public function givePermissionToUser(User $user, Request $request)
     {
-       
+
         if ($user->hasPermissionTo($request->permission)) {
-            return back()->with(['message-success' => 'El Permiso ya se encuentra asignado']);         
+            return back()->with(['message-success' => 'El Permiso ya se encuentra asignado']);
         }
- 
+
         $user->givePermissionTo($request->permission);
-            return back()->with(['message' => 'El Permiso ha sido creado']);
-        
+        return back()->with(['message' => 'El Permiso ha sido creado']);
     }
 
     public function revokePermissionToUser(User $user, Request $request)

@@ -26,25 +26,23 @@
                                 </p>
                             </div>
                             <div class="col-md-2 ">
-                                <a href="{{ route('roles.create') }}" type="button"
+                                <a href="{{ route('register') }}" type="button"
                                     class="btn btn-primary waves-effect w-full waves-light">Crear
                                     Usuario</a>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        @if (Session::has('message'))
-                            <div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show"
-                                role="alert">
-                                <i
-                                    class="mdi mdi-check-all label-icon"></i><strong>Exito</strong>-{{ Session::get('message') }}
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show"
+                            role="alert">
+                            <i class="mdi mdi-check-all label-icon"></i><strong>Exito</strong>-{{ session('success') }}
 
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table mb-0">
+                            <table class="table ">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -70,12 +68,12 @@
                                                         class="mdi mdi-account-edit label-icon"></i>Editar </a>
 
                                                 {{-- <a href="{{ route('users.edit', $user->id) }}" type="button"
-                                                class="btn btn-warning waves-effect btn-label waves-light d-inline-block"><i
-                                                    class="mdi mdi-account-multiple label-icon"></i> Roles</a>
+                                                    class="btn btn-warning waves-effect btn-label waves-light d-inline-block"><i
+                                                        class="mdi mdi-account-multiple label-icon"></i> Roles</a>
 
-                                            <a href="{{ route('users.edit', $user->id) }}" type="button"
-                                                class="btn btn-success waves-effect btn-label waves-light d-inline-block"><i
-                                                    class="mdi mdi-badge-account label-icon"></i> Permisos</a> --}}
+                                                <a href="{{ route('users.edit', $user->id) }}" type="button"
+                                                    class="btn btn-success waves-effect btn-label waves-light d-inline-block"><i
+                                                        class="mdi mdi-badge-account label-icon"></i> Permisos</a> --}}
 
                                                 <form method="POST" action="{{ route('users.destroy', $user->id) }}"
                                                     class="d-inline-block"
@@ -97,10 +95,12 @@
                             <!-- Enlaces de paginación -->
                             {{ $users->links('pagination::bootstrap-5') }}
                         </div>
-
                     </div>
+
+
                 </div>
             </div>
+        </div>
         </div>
         <!-- end row -->
     @endsection

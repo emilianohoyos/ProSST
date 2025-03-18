@@ -28,7 +28,7 @@
                                 </p>
                             </div>
                             <div class="col-md-2 ">
-                                <a href="{{ route('admin.permissions.index') }}" type="button"
+                                <a href="{{ route('permissions.index') }}" type="button"
                                     class="btn btn-primary waves-effect w-full waves-light">Ver Permisos</a>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form method="POST" action="{{ route('admin.permissions.update', $permission) }}">
+                            <form method="POST" action="{{ route('permissions.update', $permission) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-4">
@@ -114,7 +114,7 @@
                             @endif
                             @forelse ($permission->roles as $permission_role)
                                 <form method="POST"
-                                    action="{{ route('admin.permissions.roles.remove', [$permission->id, $permission_role->name]) }}"
+                                    action="{{ route('permissions.roles.remove', [$permission->id, $permission_role->name]) }}"
                                     class="d-inline-block"
                                     onsubmit="return confirm('Esta Seguro De Remover el permiso {{ $permission_role->name }}?');">
                                     @csrf
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="col-md-12 mt-5">
-                            <form method="POST" action="{{ route('admin.permissions.roles', $permission->id) }}">
+                            <form method="POST" action="{{ route('permissions.roles', $permission->id) }}">
                                 @csrf
                                 <div class="row mb-4">
                                     <label for="name" class="col-sm-3 col-form-label">Rol</label>

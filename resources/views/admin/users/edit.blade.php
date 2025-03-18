@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('title')
-    Crear Usuario
+    Editar Usuario
 @endsection
 @section('css')
     <!-- fullcalendar css -->
     <link href="{{ URL::asset('build/libs/fullcalendar/main.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('page-title')
-    Crear Usuario
+    Editar Usuario
 @endsection
 @section('body')
 
@@ -18,23 +18,12 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Registrar usuario</h4>
+                        <h4 class="card-title mb-0">Editar usuario</h4>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Por favor corrige los siguientes errores:</strong>
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" class="auth-input">
                             @csrf
+
                             <div class="row">
                                 <div class="col md-6">
                                     <div class="mb-3">
@@ -140,13 +129,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="professional_card" class="form-label">Numero tarjeta
+                                        <label for="email" class="form-label">Numero tarjeta
                                             profesional<span class="text-danger">*</span></label>
-                                        <input id="professional_card" type="professional_card"
-                                            class="form-control @error('professional_card') is-invalid @enderror"
-                                            name="professional_card" value="{{ old('professional_card') }}" required
-                                            autocomplete="professional_card" placeholder="Ingrese Correo">
-                                        @error('professional_card')
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('email') }}" required autocomplete="email"
+                                            placeholder="Ingrese Correo">
+                                        @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -258,7 +247,7 @@
                             </div> --}}
 
                             <div class="mt-4">
-                                <button class="btn btn-primary w-100" type="submit">Crear</button>
+                                <button class="btn btn-primary w-100" type="submit">Actualizar</button>
                             </div>
 
 

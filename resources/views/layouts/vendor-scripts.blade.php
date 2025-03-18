@@ -3,6 +3,7 @@
 <script src="{{ URL::asset('build/libs/metismenujs/metismenujs.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/eva-icons/eva.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 @yield('scripts')
 <script>
     // Función para mostrar/ocultar el chatbot

@@ -7,7 +7,9 @@ use App\Models\DocumentType;
 use App\Models\PersonType;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -59,7 +61,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -73,19 +76,45 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
 
             'first_name' => $data['first_name'],
+            'identification' => $data['identification'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']), // Cambia la contraseña según necesites
             'document_type_id' => $data['document_type_id'], // Ajusta según tu BD
             'person_type_id' => $data['person_type_id'], // Ajusta según tu BD
-            'country' => $data['country'],
+            'professional_card' => $data['professional_card'], // Ajusta según tu BD
+            'cellphone' => $data['cellphone'],
             'department' => $data['department'],
             'city' => $data['city'],
+            'neighborhood' => $data['neighborhood'],
             'address' => $data['address']
 
         ]);
+        // Asignar el rol de ADMIN
+        if (!$user->hasRole('USUARIO')) {
+            $user->assignRole('USUARIO');
+        }
+        event(new Registered($user));
+        return $user;
+    }
+
+    public function register(Request $request)
+    {
+        // dd('entro');
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            // dd('error');
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput(); // Mantiene los valores ingresados
+        }
+
+        $this->create($request->all());
+
+        return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente');
     }
 }

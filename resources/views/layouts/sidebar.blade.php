@@ -30,109 +30,113 @@
 
         <!--- Sidemenu -->
         <div id="sidebar-menu">
+
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title" data-key="t-menu">Dashboard</li>
+                @role('ADMIN')
+                    <li class="menu-title" data-key="t-menu">Dashboard</li>
 
-                <li>
-                    <a href="../index">
-                        <i class="bx bx-home-alt icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-dashboard">Dashboard</span>
-                        <span class="badge rounded-pill bg-primary">2</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="../index">
+                            <i class="bx bx-home-alt icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-dashboard">Dashboard</span>
+                            <span class="badge rounded-pill bg-primary">2</span>
+                        </a>
+                    </li>
 
-                <li class="menu-title" data-key="t-administration">Administracion</li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="mdi mdi-account-cog icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Administrador.</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('roles.index') }}" data-key="t-inbox">Roles</a></li>
-                        <li><a href="{{ route('permissions.index') }}" data-key="t-inbox">Permisos</a></li>
-                        <li><a href="{{ route('users.index') }}" data-key="t-read-emails">Usuarios</a></li>
-                    </ul>
-                </li>
-                <li class="menu-title" data-key="t-management">Mi Gestión</li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow" data-key="t-client-link">
-                        <i class="fa fa-user-tie icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-ecommerce">Mis Clientes</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('client.create') }}" data-key="t-products">Crear</a></li>
-                        <li><a href="{{ route('client.index') }}" data-key="t-product-detail">Consultar</a></li>
-                    </ul>
-                </li>
-
-
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fa fa-search icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-ui-elements">Mis Auditorias PESV</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('audit.create') }}" data-key="t-alerts">Crear</a></li>
-                        <li><a href="{{ route('audit.index') }}" data-key="t-buttons">Consultar</a></li>
-                    </ul>
-                </li>
+                    <li class="menu-title" data-key="t-administration">Administracion</li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="mdi mdi-account-cog icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-email">Administrador.</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('roles.index') }}" data-key="t-inbox">Roles</a></li>
+                            <li><a href="{{ route('permissions.index') }}" data-key="t-inbox">Permisos</a></li>
+                            <li><a href="{{ route('users.index') }}" data-key="t-read-emails">Usuarios</a></li>
+                        </ul>
+                    </li>
+                @endrole
+                @hasanyrole('ADMIN|USUARIO')
+                    <li class="menu-title" data-key="t-management">Mi Gestión</li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow" data-key="t-client-link">
+                            <i class="fa fa-user-tie icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-ecommerce">Mis Clientes</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('client.create') }}" data-key="t-products">Crear</a></li>
+                            <li><a href="{{ route('client.index') }}" data-key="t-product-detail">Consultar</a></li>
+                        </ul>
+                    </li>
 
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fa fa-tasks icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-plan">Mis Planes de Mejora PESV</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox" data-key="t-plan-crear">Crear</a></li>
-                        <li><a href="email-read" data-key="t-planes">Consultar</a></li>
-                    </ul>
-                </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fa fa-diagnoses icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Mis Diagnosticos PESV</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="fa fa-search icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-ui-elements">Mis Auditorias PESV</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('audit.create') }}" data-key="t-alerts">Crear</a></li>
+                            <li><a href="{{ route('audit.index') }}" data-key="t-buttons">Consultar</a></li>
+                        </ul>
+                    </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="fa fa-project-diagram icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Mis Planes de Trabajo PESV</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                        <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
-                    </ul>
-                </li>
 
-                <li class="menu-title" data-key="t-applications">Mis Reportes</li>
-                <li>
-                    <a href="apps-calendar">
-                        <i class="fa fa-file-alt icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-calendar">Historicos Clientes</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="apps-calendar">
-                        <i class="fa fa-chart-bar icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-calendar">Historicos Auditorias</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="apps-calendar">
-                        <i class="fa fa-chart-line icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-calendar">Historicos Diagnosticos</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="fa fa-tasks icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-plan">Mis Planes de Mejora PESV</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="email-inbox" data-key="t-plan-crear">Crear</a></li>
+                            <li><a href="email-read" data-key="t-planes">Consultar</a></li>
+                        </ul>
+                    </li>
 
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="fa fa-diagnoses icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-email">Mis Diagnosticos PESV</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                            <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="fa fa-project-diagram icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-email">Mis Planes de Trabajo PESV</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
+                            <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title" data-key="t-applications">Mis Reportes</li>
+                    <li>
+                        <a href="apps-calendar">
+                            <i class="fa fa-file-alt icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-calendar">Historicos Clientes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="apps-calendar">
+                            <i class="fa fa-chart-bar icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-calendar">Historicos Auditorias</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="apps-calendar">
+                            <i class="fa fa-chart-line icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-calendar">Historicos Diagnosticos</span>
+                        </a>
+                    </li>
+                @endhasanyrole
 
                 <li class="menu-title" data-key="t-applications">Applications</li>
 
