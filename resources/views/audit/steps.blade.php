@@ -26,11 +26,11 @@
 
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Razón Social/Nombre</th>
-                                        <th>Fecha de la auditoria</th>
-                                        <th>Nivel</th>
-                                        <th>Estado</th>
+                                        <th>Paso</th>
+                                        <th>Descripcion</th>
+                                        <th>Total Preguntas</th>
+                                        <th>Preguntas respondidas</th>
+                                        <th>progreso</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -82,13 +82,13 @@
                 $('#audits-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('audit.datatable') }}",
+                    ajax: "{{ route('audit.datatable.steps',['application_level'=>$application_level,'assessment_id'=>$assessment_id]) }}",
                     columns: [
-                        { data: 'assessment_id', name: 'pesv_assesments.id' },
-                        { data: 'completed_at', name: 'pesv_assesments.completed_at' },
-                        { data: 'client_name', name: 'clients.name' },
-                        { data: 'name_level', name: 'application_levels.name_level' },
-                        { data: 'state_name', name: 'states.name' },
+                        { data: 'id', name: 'id' },
+                        { data: 'description', name: 'description' },
+                        { data: 'total_questions', name: 'total_questions' },
+                        { data: 'answered_questions', name: 'answered_questions' },
+                        { data: 'progress', name: 'progress' },
                         { data: 'action', name: 'action', orderable: false, searchable: false }
                     ],
                     language: {

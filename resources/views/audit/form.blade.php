@@ -3,55 +3,37 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="nit" class="form-label">Nit/Identificación</label>
-                <input type="text" class="form-control" placeholder="Ingrese NIT" id="nit">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label for="nit" class="form-label">Razón Social/Nombre</label>
-                <input type="text" class="form-control" placeholder="Ingrese Razón Social/Nombre" id="nit">
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label for="nit" class="form-label">Sede</label>
-                <select name="" class="form-control" id="">
-                    <option value="">Seleccione...</option>
-                    <option value="Sede 1">Sede 1</option>
-                    <option value="Sede 2">Sede 2</option>
+                <label for="nit" class="form-label">Cliente</label>
+                <select name="client_id" class="form-control" id="client_id">
+                    @foreach ($users as $item)
+                    <option value="{{ $item->client_id }}">{{$item->name}}</option>
+                    @endforeach
                 </select>
-            </div>
+             </div>
         </div>
+    
+
         <div class="col-md-6">
             <div class="mb-3">
                 <label for="nit" class="form-label">Fecha de realización </label>
                 <input type="date" class="form-control" placeholder="Ingrese Fecha de realización" id="nit">
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="mb-3">
-                <label for="nit" class="form-label">Nombre de los participantes</label>
-                <input type="text" class="form-control" placeholder="Ingrese Nombre de los participantes"
-                    id="nit">
-            </div>
-        </div>
+        
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="nit" class="form-label">Cantidad de Vehiculos a evaluar?</label>
-                <input type="number" class="form-control" placeholder="Ingrese Cantidad de Vehiculos a evaluar"
-                    id="nit">
+                <label for="number_vehicles" class="form-label">Numero de vehiculos</label>
+                <input type="number" class="form-control" placeholder="Ingrese Fecha de realización" id="number_vehicles">
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="nit" class="form-label">Nivel del PESV Aplicar</label>
-                <select name="" class="form-control" id="">
-                    <option value="">Seleccione</option>
-                    <option value="Basico">Basico</option>
-                    <option value="Intermedio">Intermedio</option>
-                    <option value="Avanzado">Avanzado</option>
+                <label for="application_level_id" class="form-label">Nivel del PESV Aplicar</label>
+                <select name="application_level_id" class="form-control" id="application_level_id">
+                    @foreach ($levels as $item)
+                    <option value="{{ $item->client_id }}">{{$item->name_level}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

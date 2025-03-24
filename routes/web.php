@@ -54,6 +54,10 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::put('/client-users-update/{id}', [ClientController::class, 'clientUserUpdate'])->name('client.users.update');
 
         Route::resource('audit', AuditController::class);
+        Route::get('audit-datatable', [AuditController::class, 'datatableAuditoria'])->name('audit.datatable');
+        Route::get('audit-datatable-steps/{application_level}/{assessment_id}', [AuditController::class, 'datatablePasos'])->name('audit.datatable.steps');
+        Route::get('audit-step-questions/{assessment_id}/{step_id}', [AuditController::class, 'diligenciarPreguntas'])->name('audit.step.questions');
+        Route::post('audit-save-questions', [AuditController::class, 'guardarRespuestaIndividual'])->name('audit.save.single.response');
     });
 });
 

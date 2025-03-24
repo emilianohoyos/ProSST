@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PesvAnswer extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'pesv_assessment_id',
+        'pesv_question_id',
+        'qualification_id',
+        'observation'
+    ];
 }
