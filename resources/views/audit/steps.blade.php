@@ -39,6 +39,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div id="footer-container" class="mt-3"></div>
 
                     </div>
                 </div>
@@ -77,12 +78,22 @@
                     console.log("Eliminación cancelada");
                 }
             }
-
+           
             $(document).ready(function() {
                 $('#audits-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('audit.datatable.steps',['application_level'=>$application_level,'assessment_id'=>$assessment_id]) }}",
+                    ajax: 
+                    {
+                        url:"{{ route('audit.datatable.steps',['application_level'=>$application_level,'assessment_id'=>$assessment_id]) }}",
+                        dataSrc: function(json) {
+                        // Agregar el footer si está presente en la respuesta
+                        if (json.footer) {
+                            $('#footer-container').html(json.footer);
+                        }
+                        return json.data; // Devolver solo los datos de la tabla
+                        }
+                    },
                     columns: [
                         { data: 'id', name: 'id' },
                         { data: 'description', name: 'description' },
@@ -96,6 +107,50 @@
                     }
                 });
             });
+
+            function finalizarAuditoria(auditoria_id) {
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Una vez finalizada, no podrás modificar esta auditoría.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, finalizar",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch("{{ route('audit.finalize') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: JSON.stringify({ auditoria_id: auditoria_id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: "Finalizado",
+                        text: "La auditoría ha sido finalizada correctamente.",
+                        icon: "success"
+                    }).then(() => {
+                        window.location.href = "{{ route('audit.index') }}"; // Redirige a audit.index
+                    });
+                } else {
+                    Swal.fire("Error", "Hubo un problema al finalizar la auditoría.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire("Error", "Hubo un problema con la solicitud.", "error");
+            });
+        }
+    });
+}
+
+
         </script>
-        {{-- <script src="{{ URL::asset('build/js/app.js') }}"></script> --}}
+    <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection

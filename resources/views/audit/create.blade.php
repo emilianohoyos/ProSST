@@ -29,7 +29,7 @@
                                         <select name="client_id" class="form-control @error('client_id') is-invalid @enderror" id="client_id">
                                             @foreach ($users as $item)
                                                 <option value="{{ $item->client_id }}" {{ old('client_id') == $item->client_id ? 'selected' : '' }}>
-                                                    {{ $item->name }}
+                                                    Identificacion: {{ $item->identification }}-Razón Social: {{ $item->name }}-Sede:{{ $item->headquarters }}
                                                 </option>
                                             @endforeach
                                         </select>

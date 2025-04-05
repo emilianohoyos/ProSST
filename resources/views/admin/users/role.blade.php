@@ -28,7 +28,7 @@
                                             class="text-danger">*</span></label>
                                     <select name="document_type_id" id="document_type_id" class="form-control">
                                         @foreach ($document_type as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                            <option value="{{ $item->id }}" {{ $user->document_type_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -41,7 +41,7 @@
                                             class="text-danger">*</span></label>
                                     <input id="name" type="text"
                                         class="form-control @error('identification') is-invalid @enderror"
-                                        name="identification" value="{{ old('identification') }}" required
+                                        name="identification" value="{{ old('identification', $user->identification) }}" required
                                         autocomplete="identification" autofocus placeholder="Ingrese Identificacion ">
                                     @error('identification')
                                         <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                                             class="text-danger">*</span></label>
                                     <input id="first_name" type="text"
                                         class="form-control @error('first_name') is-invalid @enderror" name="first_name"
-                                        value="{{ old('first_name') }}" required autocomplete="first_name" autofocus
+                                        value="{{ old('first_name', $user->first_name) }}" required autocomplete="first_name" autofocus
                                         placeholder="Ingrese nombres">
                                     @error('first_name')
                                         <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
                                             class="text-danger">*</span></label>
                                     <input id="last_name" type="text"
                                         class="form-control @error('last_name') is-invalid @enderror" name="last_name"
-                                        value="{{ old('last_name') }}" required autocomplete="last_name" autofocus
+                                        value="{{ old('last_name',$user->last_name) }}" required autocomplete="last_name" autofocus
                                         placeholder="Ingrese nombres">
                                     @error('last_name')
                                         <span class="invalid-feedback" role="alert">
@@ -89,7 +89,7 @@
                                             class="text-danger">*</span></label>
                                     <select name="person_type_id" id="person_type_id" class="form-control">
                                         @foreach ($person_type as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                            <option value="{{ $item->id }}" {{ $user->person_type_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -100,7 +100,7 @@
                                 <label for="email" class="form-label">Correo<span class="text-danger">*</span></label>
                                 <input id="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email" placeholder="Ingrese Correo">
+                                    value="{{ old('email',$user->email) }}" required autocomplete="email" placeholder="Ingrese Correo">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -109,13 +109,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Celular <span
+                                    <label for="cellphone" class="form-label">Celular <span
                                             class="text-danger">*</span></label>
-                                    <input id="name" type="text"
+                                    <input id="cellphone" type="text"
                                         class="form-control @error('cellphone') is-invalid @enderror" name="cellphone"
-                                        value="{{ old('cellphone') }}" required autocomplete="cellphone" autofocus
+                                        value="{{ old('cellphone', $user->cellphone) }}" required autocomplete="cellphone" autofocus
                                         placeholder="Ingrese Celular ">
-                                    @error('Telefono')
+                                    @error('cellphone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -124,13 +124,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Numero tarjeta
+                                    <label for="professional_card" class="form-label">Numero tarjeta
                                         profesional<span class="text-danger">*</span></label>
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email"
-                                        placeholder="Ingrese Correo">
-                                    @error('email')
+                                        <input id="professional_card" type="professional_card"
+                                        class="form-control @error('professional_card') is-invalid @enderror"
+                                        name="professional_card" value="{{ old('professional_card', $user->professional_card) }}" required
+                                        autocomplete="professional_card" placeholder="Ingrese tarjeta profesonal">
+                                        @error('professional_card')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -148,12 +148,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Departamento
+                                    <label for="department" class="form-label">Departamento
                                         <span class="text-danger">*</span></label>
                                     <select name="department" id="department" class="form-control">
-                                        <option value="Antioquia">Antioquia</option>
-                                        <option value="Antioquia">Cundinamarca</option>
-                                        <option value="Antioquia">Amazonas</option>
+                                        <option value="Antioquia" {{ $user->department == "Antioquia" ? 'selected' : '' }}>Antioquia</option>
+                                        <option value="Cundinamarca" {{ $user->department == "Cundinamarca" ? 'selected' : '' }}>Cundinamarca</option>
+                                        <option value="Amazonas" {{ $user->department == "Amazonas" ? 'selected' : '' }}>Amazonas</option>
                                     </select>
 
                                 </div>
@@ -163,9 +163,9 @@
                                     <label for="email" class="form-label">Ciudad
                                         <span class="text-danger">*</span></label>
                                     <select name="city" id="city" class="form-control">
-                                        <option value="Medellin">Medellin</option>
-                                        <option value="Bello">Bello</option>
-                                        <option value="Itagui">Itagui</option>
+                                        <option value="Medellin" {{ $user->department == "Medellin" ? 'selected' : '' }}>Medellin</option>
+                                        <option value="Bello" {{ $user->department == "Bello" ? 'selected' : '' }}>Bello</option>
+                                        <option value="Itagui" {{ $user->department == "Itagui" ? 'selected' : '' }}>Itagui</option>
                                     </select>
 
                                 </div>
@@ -176,7 +176,7 @@
                                             class="text-danger">*</span></label>
                                     <input id="neighborhood" type="text"
                                         class="form-control @error('neighborhood') is-invalid @enderror"
-                                        name="neighborhood" value="{{ old('neighborhood') }}" required
+                                        name="neighborhood" value="{{ old('neighborhood', $user->neighborhood) }}" required
                                         autocomplete="neighborhood" autofocus placeholder="Ingrese Barrio">
                                     @error('neighborhood')
                                         <span class="invalid-feedback" role="alert">
@@ -192,7 +192,7 @@
                                             class="text-danger">*</span></label>
                                     <input id="address" type="text"
                                         class="form-control @error('address') is-invalid @enderror" name="address"
-                                        value="{{ old('address') }}" required placeholder="Ingrese dirección">
+                                        value="{{ old('address', $user->address) }}" required placeholder="Ingrese dirección">
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

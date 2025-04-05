@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -58,9 +59,12 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::get('audit-datatable-steps/{application_level}/{assessment_id}', [AuditController::class, 'datatablePasos'])->name('audit.datatable.steps');
         Route::get('audit-step-questions/{assessment_id}/{step_id}', [AuditController::class, 'diligenciarPreguntas'])->name('audit.step.questions');
         Route::post('audit-save-questions', [AuditController::class, 'guardarRespuestaIndividual'])->name('audit.save.single.response');
+        Route::post('/audit/finalize', [AuditController::class, 'finalizeAudit'])->name('audit.finalize');
+        Route::get('/audit-inform/{auditoria_id}', [AuditController::class, 'generarInformePESV'])->name('audit.inform');
     });
 });
 
+Route::post('/chat', [ChatBotController::class, 'ask'])->name('chat.ask');
 
 Route::get('assessment', [AuditController::class, 'assessment'])->name('audit.assessment');
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index')->withoutMiddleware(['auth']);

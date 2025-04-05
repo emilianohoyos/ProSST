@@ -84,10 +84,10 @@
                                             <div class="mt-4">
                                                 <button class="btn btn-primary w-100" type="submit">Iniciar sesion</button>
                                             </div>
-                                            <div class="mt-4 text-center">
+                                            {{-- <div class="mt-4 text-center">
                                                 <p class="mb-0">No tienes Cuenta? <a href="{{ route('register') }}"
                                                         class="fw-medium text-primary"> Registrar</a></p>
-                                            </div>
+                                            </div> --}}
                                         </form>
                                     </div>
 

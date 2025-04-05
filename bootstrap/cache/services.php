@@ -39,17 +39,18 @@
     35 => 'Carbon\\Laravel\\ServiceProvider',
     36 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     37 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    38 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
-    39 => 'Spatie\\Permission\\PermissionServiceProvider',
-    40 => 'Yajra\\DataTables\\ButtonsServiceProvider',
-    41 => 'Yajra\\DataTables\\EditorServiceProvider',
-    42 => 'Yajra\\DataTables\\FractalServiceProvider',
-    43 => 'Yajra\\DataTables\\HtmlServiceProvider',
-    44 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    45 => 'App\\Providers\\AppServiceProvider',
-    46 => 'App\\Providers\\AuthServiceProvider',
-    47 => 'App\\Providers\\EventServiceProvider',
-    48 => 'App\\Providers\\RouteServiceProvider',
+    38 => 'OpenAI\\Laravel\\ServiceProvider',
+    39 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
+    40 => 'Spatie\\Permission\\PermissionServiceProvider',
+    41 => 'Yajra\\DataTables\\ButtonsServiceProvider',
+    42 => 'Yajra\\DataTables\\EditorServiceProvider',
+    43 => 'Yajra\\DataTables\\FractalServiceProvider',
+    44 => 'Yajra\\DataTables\\HtmlServiceProvider',
+    45 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    46 => 'App\\Providers\\AppServiceProvider',
+    47 => 'App\\Providers\\AuthServiceProvider',
+    48 => 'App\\Providers\\EventServiceProvider',
+    49 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -233,6 +234,9 @@
     'Laravel\\Sail\\Console\\InstallCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'Laravel\\Sail\\Console\\PublishCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'OpenAI\\Client' => 'OpenAI\\Laravel\\ServiceProvider',
+    'OpenAI\\Contracts\\ClientContract' => 'OpenAI\\Laravel\\ServiceProvider',
+    'openai' => 'OpenAI\\Laravel\\ServiceProvider',
   ),
   'when' => 
   array (
@@ -276,6 +280,9 @@
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
+    array (
+    ),
+    'OpenAI\\Laravel\\ServiceProvider' => 
     array (
     ),
   ),

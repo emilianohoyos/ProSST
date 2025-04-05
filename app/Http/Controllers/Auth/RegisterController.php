@@ -47,6 +47,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        // dd('entro');
         $document_type = DocumentType::all();
         $person_type = PersonType::all();
         return view('admin.users.create', compact('document_type', 'person_type'));

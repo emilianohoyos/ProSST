@@ -6,7 +6,7 @@
 
 @endsection
 @section('page-title')
-    Auditorias
+    Mis Auditorias
 @endsection
 @section('body')
 
@@ -85,8 +85,8 @@
                     ajax: "{{ route('audit.datatable') }}",
                     columns: [
                         { data: 'assessment_id', name: 'pesv_assesments.id' },
-                        { data: 'completed_at', name: 'pesv_assesments.completed_at' },
                         { data: 'client_name', name: 'clients.name' },
+                        { data: 'completed_at', name: 'pesv_assesments.completed_at' },
                         { data: 'name_level', name: 'application_levels.name_level' },
                         { data: 'state_name', name: 'states.name' },
                         { data: 'action', name: 'action', orderable: false, searchable: false }
@@ -97,5 +97,5 @@
                 });
             });
         </script>
-        {{-- <script src="{{ URL::asset('build/js/app.js') }}"></script> --}}
+         <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection

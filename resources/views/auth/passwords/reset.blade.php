@@ -29,14 +29,14 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
-                                        <h5>Create New Password</h5>
-                                        <p class="text-muted">secure your account with webadmin.</p>
+                                        <h5>Crear Nueva Contraseña</h5>
+                                        {{-- <p class="text-muted">secure your account with webadmin.</p> --}}
                                     </div>
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('password.update') }}" class="auth-input">
                                             @csrf
                                             <div class="mb-3">
-                                                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                                <label for="email" class="form-label">Correo Electronico <span class="text-danger">*</span></label>
                                                 <input id="email" type="email"
                                                     class="form-control @error('email') is-invalid @enderror"
                                                     name="email" value="{{ $email ?? old('email') }}" required
@@ -48,37 +48,33 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+                                                <label class="form-label" for="password-input">Contraseña <span class="text-danger">*</span></label>
                                                 <input type="password"
                                                     class="form-control @error('password') is-invalid @enderror"
-                                                    name="password" placeholder="Enter password" id="password-input"
+                                                    name="password" placeholder="Ingresar contraseña" id="password-input"
                                                     aria-describedby="passwordInput" required="">
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
-                                                <div id="passwordInput" class="form-text">Your password must be
-                                                    8-20
-                                                    characters long.</div>
+                                                <div id="passwordInput" class="form-text">Su contraseña debe tener entre 8 y 20 caracteres.</div>
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="form-label" for="confirm-password-input">Confirm
-                                                    Password <span class="text-danger">*</span></label>
+                                                <label class="form-label" for="confirm-password-input">Confirmar Contraseña<span class="text-danger">*</span></label>
                                                 <input type="password" class="form-control" name="password_confirmation"
-                                                    placeholder="Confirm password" id="confirm-password-input"
+                                                    placeholder="Confirmar Contraseña" id="confirm-password-input"
                                                     required="">
                                             </div>
 
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Reset
-                                                    Password</button>
+                                                <button class="btn btn-primary w-100" type="submit">Cambiar Contraseña</button>
                                             </div>
 
                                             <div class="mt-4 text-center">
-                                                <p class="mb-0">Remember your password ? <a href="{{ route('login') }}"
-                                                        class="fw-medium text-primary"> Login</a></p>
+                                                <p class="mb-0">¿Recuerdas tu contraseña? <a href="{{ route('login') }}"
+                                                        class="fw-medium text-primary"> Iniciar Sesion</a></p>
                                             </div>
 
                                         </form>
