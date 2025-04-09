@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\ChatBotController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use OpenAI\Laravel\Facades\OpenAI;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/chat', [ChatBotController::class, 'ask'])->name('chat.ask');
+
+Route::post('/ask-assistant', [AssistantController::class, 'ask']);
+
+Route::get('/test-models', function () {
+    try {
+        $assistants = OpenAI::assistants()->list()->toArray();
+        return response()->json($assistants);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => $e->getMessage()
+        ], 500);
+    }
+});

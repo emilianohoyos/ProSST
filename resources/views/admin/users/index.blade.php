@@ -58,7 +58,7 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <th scope="row">{{ $user->id }}</th>
-                                            <td>{{ $user->first_name }}{{ $user->last_name }}</td>
+                                            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                             <td>{{ $user->identification }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at }}</td>
@@ -76,13 +76,14 @@
                                                         class="mdi mdi-badge-account label-icon"></i> Permisos</a> --}}
 
                                                 <form method="POST" action="{{ route('users.destroy', $user->id) }}"
-                                                    class="d-inline-block"
-                                                    onsubmit="return confirm('Esta Seguro De eliminar el Rol {{ $user->name }}');">
+                                                    class="d-inline-block form-delete"
+                                                    data-name="{{ $user->first_name }} {{ $user->last_name }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-danger waves-effect btn-label waves-light d-inline-block"><i
-                                                            class="mdi mdi-trash-can label-icon"></i>Eliminar </button>
+                                                    <button type="button"
+                                                        class="btn btn-danger waves-effect btn-label waves-light btn-delete">
+                                                        <i class="mdi mdi-trash-can label-icon"></i>Eliminar
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -106,4 +107,31 @@
     @endsection
     @section('scripts')
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const deleteButtons = document.querySelectorAll('.btn-delete');
+
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const form = this.closest('form');
+                        const name = form.getAttribute('data-name');
+
+                        Swal.fire({
+                            title: '¿Estás seguro?',
+                            text: `¿Deseas eliminar el Usuario ${name}?`,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#6c757d',
+                            confirmButtonText: 'Sí, eliminar',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
     @endsection

@@ -137,23 +137,26 @@
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">Alejandro Gomez</span>
+                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">{{ Auth::user()->first_name }}
+                        {{ Auth::user()->last_name }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="p-3 border-bottom">
-                        <h6 class="mb-0">Alejandro Gomez</h6>
-                        <p class="mb-0 font-size-11 text-muted">alejandro.gomez@email.com</p>
+                        <h6 class="mb-0">{{ Auth::user()->first_name }}
+                            {{ Auth::user()->last_name }}</h6>
+                        <p class="mb-0 font-size-11 text-muted">{{ Auth::user()->email }}</p>
                     </div>
-                    <a class="dropdown-item" href="contacts-profile"><i
+                    <a class="dropdown-item" href="{{ route('users.editProfile', Auth::user()->id) }}"><i
                             class="mdi mdi-account-circle text-muted font-size-16 align-middle me-2"></i> <span
                             class="align-middle">Perfil</span></a>
 
-                    <a class="dropdown-item" href="pages-faqs"><i
+                    {{-- <a class="dropdown-item" href="pages-faqs"><i
                             class="mdi mdi-lifebuoy text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Ayuda</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="#"><i
-                            class="mdi mdi-cog-outline text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle me-3">Configuraciones</span></a>
+                            class="align-middle">Ayuda</span></a> --}}
+                    <a class="dropdown-item d-flex align-items-center"
+                        href="{{ route('users.editSignature', Auth::user()->id) }}"><i
+                            class="mdi mdi-signature-image text-primary font-size-16 align-middle me-2"></i> <span
+                            class="align-middle me-3">Gestionar Mi Firma</span></a>
                     <a class="dropdown-item" href="auth-lock-screen"><i
                             class="mdi mdi-lock text-muted font-size-16 align-middle me-2"></i> <span
                             class="align-middle">Bloquear</span></a>

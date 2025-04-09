@@ -136,14 +136,13 @@ class AuditController extends Controller
                 $html = '';
                 if ($assessment->state_id == 3) {
                     $html = ' <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v"></i> <!-- Icono de tres puntos -->
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Opción 1</a></li>
-                    <li><a class="dropdown-item" href="#">Opción 2</a></li>
-                    <li><a class="dropdown-item" href="#">Opción 3</a></li>
-                </ul>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i> <!-- Icono de tres puntos -->
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen de la auditoria</a></li>
+                        <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Acta</a></li>
+                    </ul>
                 </div>';
                 } else {
                     $html = '
@@ -488,5 +487,117 @@ La mayoría de las iniciativas y requisitos del PESV se han implementado efectiv
 
 La organización exhibe un cumplimiento ejemplar de los requisitos normativos y del PESV. Todas o casi todas las iniciativas han sido implementadas con éxito, mostrando una mejora sustancial en los indicadores de pérdida y una cultura de seguridad vial profundamente arraigada. La participación de los trabajadores y contratistas es excelente, y las estrategias de conciencia sobre seguridad vial están plenamente integradas. Las auditorías reflejan una gestión del riesgo vial excepcional, con una integración total con el SGSST. La documentación del PESV es ejemplar, estando completamente actualizada y revisada regularmente.';
         }
+    }
+
+    public function obtenerResumenPESV($auditoria_id)
+    {
+        // Datos generales de la auditoría
+        $pesv_assesments = PesvAssessment::select(
+            'pesv_assessments.id as assessment_id',
+            'users.first_name',
+            'users.last_name',
+            'users.professional_card',
+            'clients.identification as client_identification',
+            'clients.name as client_name',
+            'client_users.headquarters as client_headquarters',
+            'client_users.representative as client_representative',
+            'application_levels.name_level as application_level',
+            'pesv_assessments.created_at as fecha_creacion'
+        )
+            ->join('users', 'pesv_assessments.user_id', 'users.id')
+            ->join('clients', 'pesv_assessments.client_id', 'clients.id')
+            ->join('client_users', function ($join) {
+                $join->on('pesv_assessments.client_id', '=', 'client_users.client_id')
+                    ->on('users.id', '=', 'client_users.user_id');
+            })
+            ->join('application_levels', 'pesv_assessments.application_level_id', 'application_levels.id')
+            ->find($auditoria_id);
+
+        // Calificaciones totales
+        $pasos_resumen = PesvAnswer::select('qualifications.description', DB::raw('count(*) as cantidad'))
+            ->join('qualifications', 'pesv_answers.qualification_id', 'qualifications.id')
+            ->where('pesv_answers.pesv_assessment_id', $auditoria_id)
+            ->groupBy('qualifications.description')
+            ->get();
+
+        // Desempeño por pasos
+        $desempeno_pasos = Steps::select(
+            'steps.id as step_id',
+            'steps.description as step_name',
+            DB::raw('COUNT(CASE WHEN qualifications.description != \'NO APLICA\' THEN 1 ELSE NULL END) as total_evaluados'),
+            DB::raw('SUM(CASE WHEN qualifications.description = \'CUMPLE\' THEN 1 ELSE 0 END) as cumple_count'),
+            DB::raw('SUM(CASE WHEN qualifications.description = \'CUMPLE PARCIALMENTE\' THEN 1 ELSE 0 END) as parcial_count'),
+            DB::raw('SUM(CASE WHEN qualifications.description = \'NO CUMPLE\' THEN 1 ELSE 0 END) as no_cumple_count'),
+            DB::raw('ROUND(
+                (
+                    SUM(CASE WHEN qualifications.description = \'CUMPLE\' THEN 1 ELSE 0 END) + 
+                    SUM(CASE WHEN qualifications.description = \'CUMPLE PARCIALMENTE\' THEN 1 ELSE 0 END)
+                ) * 100.0 / 
+                NULLIF(COUNT(CASE WHEN qualifications.description != \'NO APLICA\' THEN 1 ELSE NULL END), 0), 
+            0
+            ) as porcentaje_cumplimiento')
+        )
+            ->join('pesv_questions', 'pesv_questions.step_id', '=', 'steps.id')
+            ->join('pesv_answers', 'pesv_answers.pesv_question_id', '=', 'pesv_questions.id')
+            ->join('qualifications', 'pesv_answers.qualification_id', '=', 'qualifications.id')
+            ->where('pesv_answers.pesv_assessment_id', $auditoria_id)
+            ->groupBy('steps.id', 'steps.description')
+            ->orderBy('steps.id')
+            ->get();
+
+        // Nivel de cumplimiento promedio
+        $cumplimiento = round($desempeno_pasos->avg('porcentaje_cumplimiento'));
+
+        // Contadores
+        $resumen = [
+            'CUMPLE' => 0,
+            'CUMPLE PARCIALMENTE' => 0,
+            'NO CUMPLE' => 0,
+            'NO APLICA' => 0
+        ];
+        $total_items = 0;
+
+        foreach ($pasos_resumen as $item) {
+            $descripcion = strtoupper(trim($item->description));
+            if (array_key_exists($descripcion, $resumen)) {
+                $resumen[$descripcion] = $item->cantidad;
+                $total_items += $item->cantidad;
+            }
+        }
+
+        $total = array_sum($resumen);
+        $porcentajes = [];
+        foreach ($resumen as $key => $value) {
+            $porcentajes[$key] = $total > 0 ? round(($value / $total) * 100, 2) : 0;
+        }
+
+        $tabla_resumen = [
+            ['calificacion' => 'CUMPLE', 'cantidad' => $resumen['CUMPLE'], 'porcentaje' => $porcentajes['CUMPLE']],
+            ['calificacion' => 'CUMPLE PARCIALMENTE', 'cantidad' => $resumen['CUMPLE PARCIALMENTE'], 'porcentaje' => $porcentajes['CUMPLE PARCIALMENTE']],
+            ['calificacion' => 'NO CUMPLE', 'cantidad' => $resumen['NO CUMPLE'], 'porcentaje' => $porcentajes['NO CUMPLE']],
+            ['calificacion' => 'NO APLICA', 'cantidad' => $resumen['NO APLICA'], 'porcentaje' => $porcentajes['NO APLICA']],
+        ];
+
+        return [
+            'pesv_assesment' => $pesv_assesments,
+            'desempeno_pasos' => $desempeno_pasos,
+            'resumen_general' => $tabla_resumen,
+            'total_items' => $total_items,
+            'cumplimiento_promedio' => $cumplimiento
+        ];
+    }
+
+
+    public function indexResumenAuditoria($assessment_id)
+    {
+        $datos = $this->obtenerResumenPESV($assessment_id);
+
+        return view('audit.resume.index', [
+            'pesv_assesment' => $datos['pesv_assesment'],
+            'desempeno_pasos' => $datos['desempeno_pasos'],
+            'resumen_general' => $datos['resumen_general'],
+            'total_items' => $datos['total_items'],
+            'cumplimiento_promedio' => $datos['cumplimiento_promedio'],
+        ]);
     }
 }

@@ -71,7 +71,7 @@ class RoleController extends Controller
             'name' => ['required', 'min:3']
         ]);
         $role->update($validated);
-        return to_route('admin.roles.index')->with(['message' => 'Se ha Actualizado el rol correctamente!']);
+        return to_route('roles.index')->with(['message' => 'Se ha Actualizado el rol correctamente!']);
     }
 
     /**

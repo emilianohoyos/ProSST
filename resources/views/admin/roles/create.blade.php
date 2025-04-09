@@ -29,7 +29,7 @@
                             <div class="col-md-2 ">
                                 <a href="{{ route('roles.index') }}" type="button"
                                     class="btn btn-primary waves-effect w-full waves-light">Ver Roles
-                                    Rol</a>
+                                </a>
                             </div>
                         </div>
                     </div>

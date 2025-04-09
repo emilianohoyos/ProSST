@@ -40,8 +40,9 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::get('/users/destroy', [UserController::class, 'index'])->name('users.destroy');
-
+        Route::put('/users/{user}/edit', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{id}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+        // 
         Route::post('/users/{user}/roles', [UserController::class, 'assignRoleToUser'])->name('users.roles.assign');
         Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRoleToUser'])->name('users.roles.remove');
 
@@ -53,6 +54,12 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::resource('client', ClientController::class);
         Route::get('/client-users/{id}', [ClientController::class, 'clientUserData'])->name('client.users');
         Route::put('/client-users-update/{id}', [ClientController::class, 'clientUserUpdate'])->name('client.users.update');
+        Route::delete('/users-client/{userClientId}', [UserController::class, 'clientUserDelete'])->name('users.clients.delete');
+
+        Route::get('/users/profile/{user}', [UserController::class, 'editProfile'])->name('users.editProfile');
+
+        Route::get('/users/{user}/signature', [UserController::class, 'editSignature'])->name('users.editSignature');
+        Route::put('/users/{user}/signature', [UserController::class, 'updateSignature'])->name('users.updateSignature');
 
         Route::resource('audit', AuditController::class);
         Route::get('audit-datatable', [AuditController::class, 'datatableAuditoria'])->name('audit.datatable');
@@ -61,6 +68,7 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::post('audit-save-questions', [AuditController::class, 'guardarRespuestaIndividual'])->name('audit.save.single.response');
         Route::post('/audit/finalize', [AuditController::class, 'finalizeAudit'])->name('audit.finalize');
         Route::get('/audit-inform/{auditoria_id}', [AuditController::class, 'generarInformePESV'])->name('audit.inform');
+        Route::get('/audit-resume/{auditoria_id}', [AuditController::class, 'indexResumenAuditoria'])->name('audit.resume');
     });
 });
 

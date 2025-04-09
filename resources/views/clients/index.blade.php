@@ -50,11 +50,15 @@
                                                     class="btn btn-warning waves-effect waves-light">
                                                     <i class="fa fa-pen font-size-16 "></i>
                                                 </button>
-                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Eliminar" class="btn btn-danger waves-effect waves-light"
-                                                    onclick="confirmDelete(event)">
-                                                    <i class="fa fa-trash font-size-16 "></i>
+                                                <button type="button" class="btn btn-danger waves-effect waves-light"
+                                                    title="Eliminar" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    onclick="confirmDeleteClientUser({{ $item->client_user_id }})">
+                                                    <i class="fa fa-trash font-size-16"></i>
                                                 </button>
+                                                <form id="delete-client-user-form" method="POST" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -148,20 +152,26 @@
 
 
 
-                function confirmDelete(event) {
-                    // Previene la acción predeterminada del botón
-                    event.preventDefault();
-
-                    // Muestra una ventana de confirmación
-                    if (confirm("¿Desea eliminar este elemento?")) {
-                        // Acción de eliminación aquí
-                        console.log("Elemento eliminado");
-                        // Aquí puedes agregar la lógica de eliminación
-                    } else {
-                        console.log("Eliminación cancelada");
-                    }
-                }
             });
+
+            function confirmDeleteClientUser(userClientId) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta acción eliminará la relación con el cliente.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.getElementById('delete-client-user-form');
+                        form.action = `/users-clients/${userClientId}`;
+                        form.submit();
+                    }
+                });
+            }
         </script>
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection

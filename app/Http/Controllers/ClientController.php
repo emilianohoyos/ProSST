@@ -164,4 +164,17 @@ class ClientController extends Controller
 
         return  response()->json(['status' => true, 'message' => 'Se ha actualizado el cliente '], 200);
     }
+
+    public function clientUserDelete($userClientId)
+    {
+        $clientUser = ClientUser::findOrFail($userClientId);
+
+        if (!$clientUser) {
+            return redirect()->back()->with('error', "La relación no existe.");
+        }
+
+        $clientUser->delete();
+
+        return redirect()->route('users.index')->with('success', "El Cliente ha sido eliminado exitosamente.");
+    }
 }
