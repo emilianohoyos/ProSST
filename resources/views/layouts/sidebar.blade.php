@@ -75,7 +75,7 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
                             <i class="fa fa-search icon nav-icon"></i>
-                            <span class="menu-item" data-key="t-ui-elements">Mis Auditorias PESV</span>
+                            <span class="menu-item" data-key="t-ui-elements">Mis Auditorias y Diagnosticos PESV</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="{{ route('audit.create') }}" data-key="t-alerts">Crear</a></li>
@@ -90,19 +90,8 @@
                             <span class="menu-item" data-key="t-plan">Mis Planes de Mejora PESV</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="email-inbox" data-key="t-plan-crear">Crear</a></li>
-                            <li><a href="email-read" data-key="t-planes">Consultar</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow">
-                            <i class="fa fa-diagnoses icon nav-icon"></i>
-                            <span class="menu-item" data-key="t-email">Mis Diagnosticos PESV</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                            <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                            {{-- <li><a href="email-inbox" data-key="t-plan-crear">Crear</a></li> --}}
+                            <li><a href="{{ route('improvement-plan.index') }}" data-key="t-planes">Consultar</a></li>
                         </ul>
                     </li>
 

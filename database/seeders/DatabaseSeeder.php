@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
             QualificationSeeder::class,
             SourceSeeder::class,
             QuestionSeeder::class,
+            AssessmentTypesTableSeeder::class,
+            ImprovementActionsSeeder::class,
+            StatusActionsSeeder::class,
         ]);
     }
 }

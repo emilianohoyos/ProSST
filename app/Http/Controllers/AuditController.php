@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApplicationLevel;
+use App\Models\AssessmentType;
 use App\Models\Client;
 use App\Models\ClientUser;
 use App\Models\PesvAnswer;
@@ -11,6 +12,7 @@ use App\Models\PesvQuestion;
 use App\Models\PesvSummary;
 use App\Models\Qualification;
 use App\Models\Steps;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,11 +39,12 @@ class AuditController extends Controller
      */
     public function create()
     {
+        $assessment_types = AssessmentType::all();
         $levels = ApplicationLevel::all();
         $users = Client::where('client_users.user_id', Auth::id())
             ->join('client_users', 'client_users.client_id', 'clients.id')->get();
         // dd($users);
-        return view('audit.create', compact('users', 'levels'));
+        return view('audit.create', compact('assessment_types', 'users', 'levels'));
     }
 
     public function assessment()
@@ -80,7 +83,11 @@ class AuditController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $audit = PesvAssessment::find($id);
+        if ($audit) {
+            return response()->json(['success' => true, 'data' => $audit]);
+        }
+        return response()->json(['success' => false]);
     }
 
     /**
@@ -101,7 +108,14 @@ class AuditController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $audit = PesvAssessment::find($id);
+        if ($audit) {
+            $audit->participants = $request->participants;
+            $audit->key_aspects = $request->key_aspects;
+            $audit->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
     }
 
     /**
@@ -119,31 +133,51 @@ class AuditController extends Controller
     {
         $query = PesvAssessment::select([
             'pesv_assessments.id as assessment_id',
+            'pesv_assessments.assessment_type_id',
             'pesv_assessments.state_id',
             'pesv_assessments.completed_at',
             'clients.name as client_name',
             'application_levels.name_level',
-            'states.name as state_name'
+            'states.name as state_name',
+            'assessment_types.name as assessment_types',
+
         ])
             ->join('clients', 'pesv_assessments.client_id', '=', 'clients.id')
             ->join('application_levels', 'pesv_assessments.application_level_id', '=', 'application_levels.id')
             ->join('states', 'pesv_assessments.state_id', '=', 'states.id')
+            ->join('assessment_types', 'pesv_assessments.assessment_type_id', '=', 'assessment_types.id')
             ->where('pesv_assessments.user_id', 1)
+            ->orderBy('pesv_assessments.id', 'desc')
             ->get();
 
         return DataTables::of($query)
             ->addColumn('action', function ($assessment) {
                 $html = '';
                 if ($assessment->state_id == 3) {
-                    $html = ' <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i> <!-- Icono de tres puntos -->
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen de la auditoria</a></li>
-                        <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Acta</a></li>
-                    </ul>
-                </div>';
+                    if ($assessment->assessment_type_id == 1) {
+                        $html = ' <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i> <!-- Icono de tres puntos -->
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen de la auditoria</a></li>
+                             <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Informe</a></li>
+                            <li><button class="dropdown-item" onclick="updateInfo(' . $assessment->assessment_id . ')"><i class="fas fa-download"></i> Descargar Acta </a></button></li>
+                             <li><a class="dropdown-item" href="' . route('improvement.generate', ['assessment_id' => $assessment->assessment_id]) . '"><i class="fas fa-tools" title="Plan de Mejora"></i> Crear Plan de Mejora</a></li>
+
+                        </ul>
+                    </div>';
+                    } else {
+                        $html = ' <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i> <!-- Icono de tres puntos -->
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen del Diagnostico</a></li>
+                            <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Informe</a></li>
+                        </ul>
+                    </div>';
+                    }
                 } else {
                     $html = '
                     <a href="' . route('audit.show', $assessment->assessment_id) . '" class="btn btn-sm btn-primary">
@@ -305,10 +339,23 @@ class AuditController extends Controller
         return response()->json(['success' => false]);
     }
 
+    public function complementAudit(Request $request)
+    {
+        $audit = PesvAssessment::find($request->assessment_id);
+        if ($audit) {
+            $audit->participants = $request->participants;
+            $audit->key_aspects = $request->key_aspects;
+            $audit->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+    }
+
     function generarInformePESV($auditoria_id)
     {
         $pesv_assesments = PesvAssessment::select(
             'pesv_assessments.id as assessment_id',
+            'pesv_assessments.user_id',
             'users.first_name',
             'users.last_name',
             'users.professional_card',
@@ -317,7 +364,10 @@ class AuditController extends Controller
             'client_users.headquarters as client_headquarters',
             'client_users.representative as client_representative',
             'application_levels.name_level as application_level',
-            'pesv_assessments.created_at as fecha_creacion'
+            'pesv_assessments.created_at as fecha_creacion',
+            'pesv_assessments.participants',
+            'pesv_assessments.key_aspects',
+
         )
             ->join('users', 'pesv_assessments.user_id', 'users.id')
             ->join('clients', 'pesv_assessments.client_id', 'clients.id')
@@ -358,6 +408,36 @@ class AuditController extends Controller
             ->orderBy('steps.id')
             ->get();
 
+        $preguntas_cero_cumplimiento = Steps::select(
+            // 'steps.id as step_id',
+            // 'steps.description as step_name',
+            // 'pesv_questions.id as question_id',
+            // 'pesv_questions.question',
+            'pesv_questions.desc_detected_situation',
+            'qualifications.description as respuesta',
+        )
+            ->join('pesv_questions', 'pesv_questions.step_id', '=', 'steps.id')
+            ->join('pesv_answers', 'pesv_answers.pesv_question_id', '=', 'pesv_questions.id')
+            ->join('qualifications', 'pesv_answers.qualification_id', '=', 'qualifications.id')
+            ->where('pesv_answers.pesv_assessment_id', $auditoria_id)
+            ->where('qualifications.description', 'NO CUMPLE')
+            ->where('steps.id', '<>', 1)
+            ->orderBy('steps.id')
+            ->orderBy('pesv_questions.id')
+            ->get();
+
+        // dd($preguntas_cero_cumplimiento);
+
+        $pasos_alto_cumplimiento = $desempeno_pasos->filter(fn($p) => $p->porcentaje_cumplimiento >= 60);
+        $pasos_bajo_cumplimiento = $desempeno_pasos->filter(fn($p) => $p->porcentaje_cumplimiento < 60);
+
+        //reindexar despues del filter
+        $pasos_alto_cumplimiento = $pasos_alto_cumplimiento->values();
+
+        $pasos_bajo_cumplimiento = $pasos_bajo_cumplimiento->values();
+
+        // dd($pasos_alto_cumplimiento);
+
         $cumplimiento = round($desempeno_pasos->avg('porcentaje_cumplimiento'));
 
         $this->textoNivelCumplimiento($cumplimiento);
@@ -392,6 +472,17 @@ class AuditController extends Controller
             ['calificacion' => 'NO APLICA', 'cantidad' => $resumen['NO APLICA'], 'porcentaje' => $porcentajes['NO APLICA']]
         ];
 
+        $firma_evaluador = User::find($pesv_assesments->user_id);
+
+
+
+        $signPath = $firma_evaluador->sign_path; // Ejemplo: 'storage/firmas/firma_juan_perez.png'
+
+        // Verifica que el archivo exista
+        if (!file_exists(storage_path('app/public/' . $signPath))) {
+            throw new \Exception("El archivo de firma no existe en: " . $signPath);
+        }
+
         $templatePath = storage_path('app/templates/prosst plantilla informe.docx');
         $template = new TemplateProcessor($templatePath);
 
@@ -403,21 +494,56 @@ class AuditController extends Controller
         $template->setValue('sede_evaluada', $pesv_assesments['client_headquarters']);
         $template->setValue('representante_legal', $pesv_assesments['client_representative']);
         $template->setValue('evaluador', $pesv_assesments['first_name'] . ' ' . $pesv_assesments['last_name']);
-        $template->setValue('participantes', 'carlos hoyos,jose castro');
+        $template->setValue('participantes',  $pesv_assesments['participants']);
         $template->setValue('nivel_pesv', $pesv_assesments['application_level']);
         $template->setValue('fecha_informe', $pesv_assesments['fecha_creacion']);
+        $template->setValue('aspectos_a_resaltar', $pesv_assesments['key_aspects']);
 
         //hallazgo auditoria
         $template->setValue('texto_cumplimiento', $this->textoNivelCumplimiento($cumplimiento));
         // resumen de cumplimiento
         $template->cloneRow('pasos', count($desempeno_pasos));
-
-        // Asignar valores
         foreach ($desempeno_pasos as $i => $row) {
             $num = $i + 1;
             $template->setValue("pasos#$num", "Paso $row->step_id. $row->step_name.");
             $template->setValue("porcentaje_cumplimiento#$num", $row['porcentaje_cumplimiento']);
         }
+
+        //recomendaciones de mejora
+        $template->cloneRow('mejor_desempeno_paso', $pasos_alto_cumplimiento->count());
+        foreach ($pasos_alto_cumplimiento as $i => $paso) {
+            $num = $i + 1;
+            $template->setValue("mejor_desempeno_paso#$num", "Paso.{$paso->step_id}.{$paso->step_name}");
+        }
+        if ($pasos_bajo_cumplimiento->isNotEmpty()) { // Si hay registros
+            if ($pasos_bajo_cumplimiento->count() == 1) { // Caso de 1 solo registro
+                $template->setValue('bajo_desempeno_paso', "Paso." . $pasos_bajo_cumplimiento->first()->step_id . "." . $pasos_bajo_cumplimiento->first()->step_name);
+            } else { // Caso múltiples registros
+                $template->cloneRow('bajo_desempeno_paso', $pasos_bajo_cumplimiento->count());
+                foreach ($pasos_bajo_cumplimiento as $i => $paso) {
+                    $num = $i + 1;
+                    $template->setValue("bajo_desempeno_paso#$num", "Paso $paso->step_id. $paso->step_name.");
+                }
+            }
+        } else { // Si NO hay registros
+            $template->setValue('bajo_desempeno_paso', 'No hay pasos con bajo desempeño');
+        }
+        //No conformidades
+        if ($cumplimiento < 30) {
+
+            $template->setValue('no_conformidades', 'Según el análisis de la información recolectada, el nivel de implementación del PESV es tan bajo que la empresa debería no enfocarse en algunas no conformidades, sino en priorizar el diseño e implementación integral y completo del plan estratégico. En todos los pasos aplicados de acuerdo a la metodología de la resolución 40595/2022, existen aspectos de mejora, por lo que en este espacio no se determinan no conformidad específica. Por lo tanto, se recomienda urgentemente trabajar en el diseño e implementación integral del plan.');
+        } else {
+            $lista = '';
+            foreach ($preguntas_cero_cumplimiento as $i => $row) {
+                $num = $i + 1;
+                $lista .= "$num). {$row->desc_detected_situation}.\n";
+            }
+            $template->setValue('no_conformidades', trim($lista));
+        }
+
+
+
+
 
         $template->setValue('total_items', $total_items);
         $template->setValue('total_porcentaje_evaluado', 100);
@@ -432,7 +558,16 @@ class AuditController extends Controller
         }
 
 
+
         $template->setValue('cumplimiento_promedio', $cumplimiento);
+
+        // Agregar la imagen de la firma
+        $template->setImageValue('firma_evaluador', [
+            'path' => storage_path('app/public/' . $signPath),
+            'width' => 100, // Ancho en puntos (1 cm ≈ 28.35 puntos)
+            'height' => 50,  // Alto en puntos
+            'ratio' => false // Mantener dimensiones exactas
+        ]);
 
         // Verificar/Crear directorio temp si no existe
         $tempDir = storage_path('app/temp');

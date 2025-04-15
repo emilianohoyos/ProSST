@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-    Auditoria Y diasnostico PESV
+    Planes de mejora PESV
 @endsection
 @section('css')
 @endsection
 @section('page-title')
-    Mis Auditorias Y diasnosticos
+    Mis Planes de mejora PESV
 @endsection
 @section('body')
 
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Mis Auditorias y diasnosticos</h4>
+                        <h4 class="card-title">Planes de mejora PESV</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -28,10 +28,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Razón Social/Nombre</th>
-                                        <th>Fecha de la auditoria</th>
+                                        <th>Fecha del plan de mejora</th>
                                         <th>Nivel</th>
-                                        <th>Tipo Evaluacion</th>
-                                        <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -54,7 +52,7 @@
                 $('#audits-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('audit.datatable') }}",
+                    ajax: "{{ route('improvement.datatable') }}",
                     columns: [{
                             data: 'assessment_id',
                             name: 'pesv_assesments.id'
@@ -71,14 +69,7 @@
                             data: 'name_level',
                             name: 'application_levels.name_level'
                         },
-                        {
-                            data: 'assessment_types',
-                            name: 'assessment_types'
-                        },
-                        {
-                            data: 'state_name',
-                            name: 'states.name'
-                        },
+
                         {
                             data: 'action',
                             name: 'action',

@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Apex Charts
+    Resumen de la auditoria
 @endsection
 
 @section('page-title')
-    Apex Charts
+    Resumen de la auditoria
 @endsection
 
 @section('body')

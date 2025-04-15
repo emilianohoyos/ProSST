@@ -19,7 +19,8 @@ class PesvAssessment extends Model
         'path_work_plan',
         'path_improvement_plan_path',
         'number_vehicles',
-        'state_id'
+        'state_id',
+        'participants',
+        'key_aspects'
     ];
-    
 }

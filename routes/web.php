@@ -8,6 +8,7 @@ use App\Http\Controllers\AuditController;
 use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImprovementPlanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,14 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::post('/audit/finalize', [AuditController::class, 'finalizeAudit'])->name('audit.finalize');
         Route::get('/audit-inform/{auditoria_id}', [AuditController::class, 'generarInformePESV'])->name('audit.inform');
         Route::get('/audit-resume/{auditoria_id}', [AuditController::class, 'indexResumenAuditoria'])->name('audit.resume');
+        Route::post('/audit-complement', [AuditController::class, 'complementAudit'])->name('audit.complement');
+
+
+
+        Route::resource('improvement-plan', ImprovementPlanController::class);
+        Route::get('improvement-plan-generate/{assessment_id}', [ImprovementPlanController::class, 'generateImprovementPlan'])->name('improvement.generate');
+        Route::get('improvement-plan-datatable', [ImprovementPlanController::class, 'datatableImprovement'])->name('improvement.datatable');
+        Route::get('improvement-plan-answer/{assessment_id}', [ImprovementPlanController::class, 'indexAnswer'])->name('improvement.answer');
     });
 });
 
