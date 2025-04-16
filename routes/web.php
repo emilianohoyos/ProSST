@@ -78,6 +78,8 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::get('improvement-plan-generate/{assessment_id}', [ImprovementPlanController::class, 'generateImprovementPlan'])->name('improvement.generate');
         Route::get('improvement-plan-datatable', [ImprovementPlanController::class, 'datatableImprovement'])->name('improvement.datatable');
         Route::get('improvement-plan-answer/{assessment_id}', [ImprovementPlanController::class, 'indexAnswer'])->name('improvement.answer');
+        Route::get('improvement-plan-datatable-details/{assessment_id}', [ImprovementPlanController::class, 'datatableImprovementDetails'])->name('improvement.details');
+        Route::get('improvement-plan-word/{assessment_id}', [ImprovementPlanController::class, 'generateWordImprovementPlan'])->name('improvement.word');
     });
 });
 

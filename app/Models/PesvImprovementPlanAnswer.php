@@ -22,4 +22,14 @@ class PesvImprovementPlanAnswer extends Model
         'user_id',
         'action_type_id'
     ];
+
+    protected $casts = [
+        'people_to_be_informed' => 'array',
+        'channel_diffusion_improvement_action' => 'array',
+    ];
+
+    protected function asJson($value)
+    {
+        return json_encode($value, JSON_UNESCAPED_UNICODE);
+    }
 }

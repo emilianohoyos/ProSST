@@ -161,7 +161,6 @@ class AuditController extends Controller
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen de la auditoria</a></li>
-                             <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Informe</a></li>
                             <li><button class="dropdown-item" onclick="updateInfo(' . $assessment->assessment_id . ')"><i class="fas fa-download"></i> Descargar Acta </a></button></li>
                              <li><a class="dropdown-item" href="' . route('improvement.generate', ['assessment_id' => $assessment->assessment_id]) . '"><i class="fas fa-tools" title="Plan de Mejora"></i> Crear Plan de Mejora</a></li>
 

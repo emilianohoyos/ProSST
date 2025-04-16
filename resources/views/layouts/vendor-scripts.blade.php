@@ -6,6 +6,7 @@
 <script src="{{ URL::asset('build/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/jquery/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/datatable/datatables.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/select2/select2.full.min.js') }}"></script>
 @yield('scripts')
 <script>
     // Función para mostrar/ocultar el chatbot
