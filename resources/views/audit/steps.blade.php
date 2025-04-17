@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-    Auditorias
+    Pasos a Evaluar
 @endsection
 @section('css')
 @endsection
 @section('page-title')
-    Auditorias
+    Pasos a Evaluar
 @endsection
 @section('body')
 
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Mis Auditorias</h4>
+                        <h4 class="card-title">Pasos a Evaluar</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -157,7 +157,7 @@
                                         icon: "success"
                                     }).then(() => {
                                         window.location.href =
-                                        "{{ route('audit.index') }}"; // Redirige a audit.index
+                                            "{{ route('audit.index') }}"; // Redirige a audit.index
                                     });
                                 } else {
                                     Swal.fire("Error", "Hubo un problema al finalizar la auditoría.", "error");

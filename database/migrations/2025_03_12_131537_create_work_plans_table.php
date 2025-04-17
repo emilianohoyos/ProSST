@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name_president_committee');
             $table->string('reviewed_by');
             $table->string('approved_by');
-            $table->string('objetive');
+            $table->string('objective');
             $table->string('meta_description');
             $table->string('meta_numeric');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

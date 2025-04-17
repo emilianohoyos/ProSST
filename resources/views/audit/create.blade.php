@@ -25,13 +25,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="assessment_id" class="form-label">Tipo De Evaluacion</label>
-                                    <select name="assessment_id"
-                                        class="form-control @error('assessment_id') is-invalid @enderror"
-                                        id="assessment_id">
+                                    <label for="assessment_type_id" class="form-label">Tipo De Evaluacion</label>
+                                    <select name="assessment_type_id"
+                                        class="form-control @error('assessment_type_id') is-invalid @enderror"
+                                        id="assessment_type_id">
                                         @foreach ($assessment_types as $item)
                                             <option value="{{ $item->id }}"
-                                                {{ old('assessment_id') == $item->id ? 'selected' : '' }}>
+                                                {{ old('assessment_type_id') == $item->id ? 'selected' : '' }}>
                                                 {{ $item->name }}
                                             </option>
                                         @endforeach

@@ -101,8 +101,7 @@
                             <span class="menu-item" data-key="t-email">Mis Planes de Trabajo PESV</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="email-inbox" data-key="t-inbox">Crear</a></li>
-                            <li><a href="email-read" data-key="t-read-email">Consultar</a></li>
+                            <li><a href="{{ route('work-plan.index') }}" data-key="t-read-email">Consultar</a></li>
                         </ul>
                     </li>
 

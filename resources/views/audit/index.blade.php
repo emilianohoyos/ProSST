@@ -20,8 +20,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table mb-0" id="audits-table"
-                                class="table table-striped table-bordered dt-responsive nowrap">
+                            <table id="audits-table" class="table mb-0 table-striped table-bordered nowrap">
                                 <!-- table mb-0-->
 
                                 <thead>
@@ -46,10 +45,12 @@
             </div>
         </div>
         @include('audit.modal.complement')
+        @include('audit.modal.create_work_plan')
     @endsection
     @section('scripts')
         <script>
             const myModal = new bootstrap.Modal(document.getElementById('complementModal'));
+            const createWorkPlanModal = new bootstrap.Modal(document.getElementById('createWorkPlanModal'));
             $(document).ready(function() {
                 $('#audits-table').DataTable({
                     processing: true,
@@ -149,6 +150,68 @@
                     }
                 })
 
+
+            }
+
+            function createWorkPlan(assessment_id) {
+
+                document.getElementById('plan_assessment_id').value = assessment_id;
+                createWorkPlanModal.show();
+            }
+
+            function saveWorkPlan() {
+                event.preventDefault();
+                let plan_assesment_id = document.getElementById('plan_assessment_id').value
+                alert(plan_assesment_id)
+                const form = document.getElementById('createWorkPlanForm');
+                const formData = new FormData(form);
+                console.log(formData);
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: '¿Deseas guardar los datos?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, Guardar',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`work-plan-generate/${plan_assesment_id}`, {
+                                method: 'POST', // o 'PATCH'
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                },
+                                body: formData
+                            })
+
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data)
+                                if (data.status) {
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: data.message,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "error",
+                                        title: data.message || 'Error al guardar',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+
+                                createWorkPlanModal.hide();
+
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                })
 
             }
         </script>

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             AssessmentTypesTableSeeder::class,
             ImprovementActionsSeeder::class,
             StatusActionsSeeder::class,
+            WorkPlanActivitiesSeeder::class,
         ]);
     }
 }

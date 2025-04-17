@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-    Planes de mejora PESV
+    Planes de trabajo PESV
 @endsection
 @section('css')
 @endsection
 @section('page-title')
-    Mis Planes de mejora PESV
+    Mis Planes de trabajo PESV
 @endsection
 @section('body')
 
@@ -16,18 +16,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Planes de mejora PESV</h4>
+                        <h4 class="card-title">Planes de trabajo PESV</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="audits-table" class="table table-striped table-bordered dt-responsive nowrap mb-0">
+                            <table class="table mb-0" id="audits-table"
+                                class="table table-striped table-bordered dt-responsive nowrap">
                                 <!-- table mb-0-->
 
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Razón Social/Nombre</th>
-                                        <th>Fecha del plan de mejora</th>
+                                        <th>Fecha del plan de Trabajo</th>
                                         <th>Nivel</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -42,16 +43,16 @@
                 </div>
             </div>
         </div>
-        @include('audit.modal.complement')
+        {{-- @include('audit.modal.complement') --}}
     @endsection
     @section('scripts')
         <script>
-            const myModal = new bootstrap.Modal(document.getElementById('complementModal'));
+            // const myModal = new bootstrap.Modal(document.getElementById('complementModal'));
             $(document).ready(function() {
                 $('#audits-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('improvement.datatable') }}",
+                    ajax: "{{ route('work.plan.datatable') }}",
                     columns: [{
                             data: 'assessment_id',
                             name: 'pesv_assesments.id'

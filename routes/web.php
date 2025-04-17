@@ -9,6 +9,8 @@ use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprovementPlanController;
+use App\Http\Controllers\WorkPlanController;
+use App\Models\WorkPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +82,13 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::get('improvement-plan-answer/{assessment_id}', [ImprovementPlanController::class, 'indexAnswer'])->name('improvement.answer');
         Route::get('improvement-plan-datatable-details/{assessment_id}', [ImprovementPlanController::class, 'datatableImprovementDetails'])->name('improvement.details');
         Route::get('improvement-plan-word/{assessment_id}', [ImprovementPlanController::class, 'generateWordImprovementPlan'])->name('improvement.word');
+
+        Route::resource('work-plan', WorkPlanController::class);
+        Route::post('work-plan-generate/{assessment_id}', [WorkPlanController::class, 'generateWorkPlan'])->name('work.plan.generate');
+        Route::get('work-plan-datatable', [WorkPlanController::class, 'datatableWorkPlan'])->name('work.plan.datatable');
+        Route::get('work-plan-answer/{assessment_id}', [WorkPlanController::class, 'indexAnswer'])->name('work.plan.answer');
+        Route::get('work-plan-datatable-details/{work_plan_id}', [WorkPlanController::class, 'datatableWorkPlanDetails'])->name('work.plan.details');
+        Route::get('work-plan-resume/{work_plan_id}', [WorkPlanController::class, 'dataResumeWorkPlan'])->name('work.plan.resume');
     });
 });
 

@@ -20,8 +20,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table mb-0" id="improvement-table"
-                                class="table table-striped table-bordered table-hover dt-responsive nowrap">
+                            <table id="improvement-table" class="table mb-0 table-striped table-bordered table-hover ">
                                 <!-- table mb-0-->
                                 <thead>
                                     <tr>

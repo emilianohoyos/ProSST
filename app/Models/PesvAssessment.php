@@ -21,6 +21,7 @@ class PesvAssessment extends Model
         'number_vehicles',
         'state_id',
         'participants',
-        'key_aspects'
+        'key_aspects',
+        'assessment_type_id'
     ];
 }

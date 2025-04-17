@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('work_plan_activities', function (Blueprint $table) {
-            $table->id();
-            $table->text('activity');
-            $table->string('application_level');
-            $table->timestamps();
+        Schema::table('work_plans', function (Blueprint $table) {
+            $table->foreignId('pesv_assessment_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -24,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('work_plan_activities');
+        Schema::table('work_plans', function (Blueprint $table) {
+            $table->dropForeign(['pesv_assessment_id']);
+            $table->dropColumn('pesv_assessment_id');
+        });
     }
 };

@@ -62,6 +62,7 @@ class AuditController extends Controller
             'completed_at' => 'required|date',
             'number_vehicles' => 'required|integer|min:1',
             'application_level_id' => 'required|exists:application_levels,id',
+            'assessment_type_id' => 'required|exists:assessment_types,id',
         ]);
 
         PesvAssessment::create([
@@ -70,7 +71,8 @@ class AuditController extends Controller
             'number_vehicles' => $request->number_vehicles,
             'application_level_id' => $request->application_level_id,
             'user_id' => Auth::id(),
-            'state_id' => 1
+            'state_id' => 1,
+            'assessment_type_id' => $request->assessment_type_id
         ]);
 
         $status = true;
@@ -174,6 +176,7 @@ class AuditController extends Controller
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen del Diagnostico</a></li>
                             <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Informe</a></li>
+                            <li><button class="dropdown-item" onclick="createWorkPlan(' . $assessment->assessment_id . ')"><i class="fas fa-clipboard-list"></i> Crear Plan de Trabajo </a></button></li>
                         </ul>
                     </div>';
                     }
