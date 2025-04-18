@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ClientController;
@@ -89,6 +90,9 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::get('work-plan-answer/{assessment_id}', [WorkPlanController::class, 'indexAnswer'])->name('work.plan.answer');
         Route::get('work-plan-datatable-details/{work_plan_id}', [WorkPlanController::class, 'datatableWorkPlanDetails'])->name('work.plan.details');
         Route::get('work-plan-resume/{work_plan_id}', [WorkPlanController::class, 'dataResumeWorkPlan'])->name('work.plan.resume');
+
+
+        Route::post('/ask-assistant', [AssistantController::class, 'ask']);
     });
 });
 

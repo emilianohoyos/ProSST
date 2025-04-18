@@ -46,27 +46,52 @@
         chatMessages.appendChild(userMessage);
 
         // Limpia el campo de entrada
+        const userQuestion = userInput.value;
         userInput.value = "";
-
-        // Respuesta del bot
-        const botMessage = document.createElement("div");
-        botMessage.classList.add("message", "bot-message");
-        botMessage.textContent = generateBotResponse(userMessage.textContent);
-        chatMessages.appendChild(botMessage);
 
         // Auto-scroll al último mensaje
         chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
 
-    // Genera una respuesta simple del bot
-    function generateBotResponse(message) {
-        if (message.toLowerCase().includes("hola")) {
-            return "¡Hola! ¿En qué puedo ayudarte?";
-        } else if (message.toLowerCase().includes("adiós")) {
-            return "¡Hasta luego!";
-        } else {
-            return "Soy un bot simple. ¿Tienes alguna otra consulta?";
-        }
+        // Envía la petición al asistente
+        fetch('/ask-assistant', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    question: userQuestion // Cambiado de 'message' a 'question' para coincidir con la validación
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw err;
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Respuesta del bot
+                const botMessage = document.createElement("div");
+                botMessage.classList.add("message", "bot-message");
+
+                // Usamos data.answer en lugar de data.response
+                botMessage.textContent = data.answer || "No pude obtener una respuesta";
+                chatMessages.appendChild(botMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const botMessage = document.createElement("div");
+                botMessage.classList.add("message", "bot-message");
+
+                // Mostramos el error del servidor si está disponible
+                botMessage.textContent = error.error || "Lo siento, hubo un error al procesar tu pregunta";
+                chatMessages.appendChild(botMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
     }
 
     // Inicializar el chatbot oculto
