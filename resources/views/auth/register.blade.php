@@ -345,28 +345,36 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 10,
+                        errorMessage: 'Máximo 10 números',
                     }
                 ])
                 .addField('#first_name', [{
                         rule: 'required',
                         errorMessage: 'Ingrese su nombre',
+                    }, {
+                        rule: 'customRegexp',
+                        value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                        errorMessage: 'Solo se permiten letras y espacios',
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#last_name', [{
                         rule: 'required',
                         errorMessage: 'Ingrese su apellido',
+                    }, {
+                        rule: 'customRegexp',
+                        value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                        errorMessage: 'Solo se permiten letras y espacios',
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#email', [{
@@ -379,8 +387,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 50,
+                        errorMessage: 'Máximo 50 caracteres',
                     }
                 ])
                 .addField('#cellphone', [{
@@ -394,8 +402,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#professional_card', [{
@@ -404,8 +412,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#department', [{
@@ -414,8 +422,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#city', [{
@@ -424,8 +432,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#neighborhood', [{
@@ -434,8 +442,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     }
                 ])
                 .addField('#address', [{
@@ -444,8 +452,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 100,
+                        errorMessage: 'Máximo 100 caracteres',
                     }
                 ])
                 .addField('#password', [{
@@ -459,8 +467,8 @@
                     },
                     {
                         rule: 'maxLength',
-                        value: 191,
-                        errorMessage: 'Máximo 191 caracteres',
+                        value: 20,
+                        errorMessage: 'Máximo 20 caracteres',
                     },
                     {
                         rule: 'customRegexp',
