@@ -30,9 +30,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 
 
-Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:ADMIN'])->group(function () {
-        Route::get('/', [HomeController::class, 'root']);
+        Route::get('/', [HomeController::class, 'root'])->name('root');
         Route::get('/user-edit', [UserController::class, 'index'])->name('userEdit');
         Route::post('/user-update', [UserController::class, 'update'])->name('userUpdate');
 
@@ -54,7 +54,7 @@ Route::middleware(['auth', 'verified', 'role:ADMIN'])->group(function () {
         Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermissionToUser'])->name('users.permissions.revoke');
     });
     Route::middleware(['role:ADMIN|USUARIO'])->group(function () {
-        Route::get('/', [HomeController::class, 'root']);
+        Route::get('/', [HomeController::class, 'root'])->name('root');
         Route::resource('client', ClientController::class);
         Route::get('/client-users/{id}', [ClientController::class, 'clientUserData'])->name('client.users');
         Route::put('/client-users-update/{id}', [ClientController::class, 'clientUserUpdate'])->name('client.users.update');
