@@ -13,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Yajra\DataTables\Facades\DataTables;
@@ -176,8 +177,19 @@ class ImprovementPlanController extends Controller
             ->join('application_levels', 'pesv_assessments.application_level_id', '=', 'application_levels.id')
             ->join('states', 'pesv_assessments.state_id', '=', 'states.id')
             ->join('assessment_types', 'pesv_assessments.assessment_type_id', '=', 'assessment_types.id')
+            ->rightJoin('pesv_improvement_plan_answers', 'pesv_assessments.id', '=', 'pesv_improvement_plan_answers.pesv_assessment_id')
             ->where('pesv_assessments.user_id', Auth::id())
             ->where('states.name', 'Finalizado')
+            ->groupBy([
+                'pesv_assessments.id',
+                'pesv_assessments.assessment_type_id',
+                'pesv_assessments.state_id',
+                'pesv_assessments.completed_at',
+                'clients.name',
+                'application_levels.name_level',
+                'states.name',
+                'assessment_types.name'
+            ])
             ->orderBy('pesv_assessments.id', 'desc')
             ->get();
 

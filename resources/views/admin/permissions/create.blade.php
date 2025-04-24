@@ -24,7 +24,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Regisrar nuevo Permiso</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes Crear un nuevo permiso.
+                                    En esta seccion puedes registrar un nuevo permiso.
                                 </p>
                             </div>
                             <div class="col-md-2 ">
@@ -53,7 +53,7 @@
                                     <label for="name" class="col-sm-3 col-form-label">Nombre Permiso</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            placeholder="Ingrese el nombre de nuevo rol" id="name" name="name"
+                                            placeholder="Ingrese el nombre de nuevo Permiso" id="name" name="name"
                                             value="{{ old('name') }}">
                                     </div>
                                 </div>

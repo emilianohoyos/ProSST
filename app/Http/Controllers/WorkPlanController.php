@@ -17,7 +17,7 @@ class WorkPlanController extends Controller
 
     public function generateWorkPlan(Request $request, $assessment_id)
     {
-        if (WorkPlan::where('pesv_assessment_id')->exists()) {
+        if (WorkPlan::where('pesv_assessment_id', $assessment_id)->exists()) {
             return response()->json(['status' => false,  'message' => 'Ya existe Plan de trabajo para este diagnostico']);
         }
         $assessment = PesvAssessment::select('client_id', 'application_level_id')->find($assessment_id);
@@ -170,6 +170,7 @@ class WorkPlanController extends Controller
             ->join('application_levels', 'pesv_assessments.application_level_id', '=', 'application_levels.id')
             ->join('states', 'pesv_assessments.state_id', '=', 'states.id')
             ->join('assessment_types', 'pesv_assessments.assessment_type_id', '=', 'assessment_types.id')
+            ->rightJoin('work_plans', 'pesv_assessments.id', 'work_plans.pesv_assessment_id')
             ->where('pesv_assessments.user_id', Auth::id())
             ->where('states.name', 'Finalizado')
             ->orderBy('pesv_assessments.id', 'desc')

@@ -107,19 +107,19 @@ class UserController extends Controller
     {
         // dd($user->hasRole($request->role));
         if ($user->hasRole($request->role)) {
-            return back()->with(['message' => 'El Rol ya se encuentra asignado']);
+            return back()->with(['message-rol' => 'El Rol ya se encuentra asignado']);
         }
         $user->assignRole($request->role);
-        return back()->with(['message-success' => 'Se ha asignado el Rol']);
+        return back()->with(['message-success-rol' => 'Se ha asignado el Rol']);
     }
 
     public function removeRoleToUser(User $user, Request $request)
     {
         if ($user->hasRole($request->role)) {
             $user->removeRole($request->role);
-            return back()->with(['message' => 'El Rol ha sido eliminado']);
+            return back()->with(['message-rol' => 'El Rol ha sido eliminado']);
         }
-        return back()->with(['message-success' => 'El rol no se encuentra asignado']);
+        return back()->with(['message-success-rol' => 'El rol no se encuentra asignado']);
     }
 
 

@@ -28,6 +28,21 @@
 
                             <div class="card">
                                 <div class="card-body p-4">
+                                    @if ($errors->has('role_error'))
+                                        <div class="alert alert-danger">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            {{ $errors->first('role_error') }}
+
+                                            {{-- <div class="mt-2">
+                                                <a href="{{ route('login') }}" class="btn btn-sm btn-outline-danger">
+                                                    Volver a intentar
+                                                </a>
+                                                <a href="mailto:admin@dominio.com" class="btn btn-sm btn-link">
+                                                    Contactar administrador
+                                                </a>
+                                            </div> --}}
+                                        </div>
+                                    @endif
                                     <div class="text-center mt-2">
                                         <h5>Bienvenido</h5>
                                         <p class="text-muted">Inicia sesion para ingresar ProSST.</p>
@@ -84,10 +99,10 @@
                                             <div class="mt-4">
                                                 <button class="btn btn-primary w-100" type="submit">Iniciar sesion</button>
                                             </div>
-                                            {{-- <div class="mt-4 text-center">
+                                            <div class="mt-4 text-center">
                                                 <p class="mb-0">No tienes Cuenta? <a href="{{ route('register') }}"
                                                         class="fw-medium text-primary"> Registrar</a></p>
-                                            </div> --}}
+                                            </div>
                                         </form>
                                     </div>
 

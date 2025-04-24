@@ -43,9 +43,9 @@
                                         </div>
                                     @endif
                                     <div class="p-2 mt-4">
-                                        <form method="POST" action="{{ route('register') }}" class="auth-input">
+                                        <form method="POST" action="{{ route('register') }}" id="user-form"
+                                            class="auth-input">
                                             @csrf
-
                                             <div class="row">
                                                 <div class="col md-6">
                                                     <div class="mb-3">
@@ -65,7 +65,7 @@
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Identificacion <span
                                                                 class="text-danger">*</span></label>
-                                                        <input id="name" type="text"
+                                                        <input id="identification" type="text"
                                                             class="form-control @error('identification') is-invalid @enderror"
                                                             name="identification" value="{{ old('identification') }}"
                                                             required autocomplete="identification" autofocus
@@ -102,7 +102,7 @@
                                                             class="form-control @error('last_name') is-invalid @enderror"
                                                             name="last_name" value="{{ old('last_name') }}" required
                                                             autocomplete="last_name" autofocus
-                                                            placeholder="Ingrese nombres">
+                                                            placeholder="Ingrese Apellidos">
                                                         @error('last_name')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -141,14 +141,14 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="name" class="form-label">Celular <span
+                                                        <label for="cellphone" class="form-label">Celular <span
                                                                 class="text-danger">*</span></label>
-                                                        <input id="name" type="text"
+                                                        <input id="cellphone" type="text"
                                                             class="form-control @error('cellphone') is-invalid @enderror"
                                                             name="cellphone" value="{{ old('cellphone') }}" required
                                                             autocomplete="cellphone" autofocus
                                                             placeholder="Ingrese Celular ">
-                                                        @error('Telefono')
+                                                        @error('cellphone')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -157,13 +157,15 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="email" class="form-label">Numero tarjeta
+                                                        <label for="professional_card" class="form-label">Numero tarjeta
                                                             profesional<span class="text-danger">*</span></label>
-                                                        <input id="email" type="email"
-                                                            class="form-control @error('email') is-invalid @enderror"
-                                                            name="email" value="{{ old('email') }}" required
-                                                            autocomplete="email" placeholder="Ingrese Correo">
-                                                        @error('email')
+                                                        <input id="professional_card" type="professional_card"
+                                                            class="form-control @error('professional_card') is-invalid @enderror"
+                                                            name="professional_card"
+                                                            value="{{ old('professional_card') }}" required
+                                                            autocomplete="professional_card"
+                                                            placeholder="Ingrese Numero tarjeta profesional">
+                                                        @error('professional_card')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -181,7 +183,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
-                                                        <label for="email" class="form-label">Departamento
+                                                        <label for="department" class="form-label">Departamento
                                                             <span class="text-danger">*</span></label>
                                                         <select name="department" id="department" class="form-control">
                                                             <option value="Antioquia">Antioquia</option>
@@ -193,7 +195,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
-                                                        <label for="email" class="form-label">Ciudad
+                                                        <label for="city" class="form-label">Ciudad
                                                             <span class="text-danger">*</span></label>
                                                         <select name="city" id="city" class="form-control">
                                                             <option value="Medellin">Medellin</option>
@@ -224,10 +226,10 @@
                                                     <div class="mb-3">
                                                         <label for="address" class="form-label">Dirección<span
                                                                 class="text-danger">*</span></label>
-                                                        <input id="address" type="address"
+                                                        <input id="address" type="text"
                                                             class="form-control @error('address') is-invalid @enderror"
                                                             name="address" value="{{ old('address') }}" required
-                                                            autocomplete="address" placeholder="Ingrese dirección">
+                                                            placeholder="Ingrese dirección">
                                                         @error('address')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -244,11 +246,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="password-input">Contraseña <span
+                                                        <label class="form-label" for="password">Contraseña <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="password"
                                                             class="form-control @error('password') is-invalid @enderror"
-                                                            name="password" required id="password-input"
+                                                            name="password" required id="password" autocomplete="false"
                                                             placeholder="Ingrese la contraseña">
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
@@ -259,12 +261,13 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="password-confirm">Confirm
+                                                        <label class="form-label" for="password_confirmation">Confirm
                                                             Password <span class="text-danger">*</span></label>
                                                         <input type="password"
-                                                            class="form-control @error('password') is-invalid @enderror"
-                                                            name="password_confirmation" required id="password-confirm"
-                                                            placeholder="Confirme contraseña">
+                                                            class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                            name="password_confirmation" required
+                                                            id="password_confirmation" placeholder="Confirme contraseña"
+                                                            autocomplete="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -300,9 +303,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center p-4">
-                                <p>©
+                                <p>©<span id="year-container"></span>
                                     <script>
-                                        document.write(new Date().getFullYear())
+                                        document.getElementById("year-container").textContent = new Date().getFullYear();
                                     </script> webadmin. Crafted with <i
                                         class="mdi mdi-heart text-danger"></i> by Themesdesign
                                 </p>
@@ -314,4 +317,167 @@
             </div><!-- end container -->
         </div>
         <!-- end authentication section -->
+    @endsection
+    @section('scripts')
+        <script>
+            const validation = new JustValidate('#user-form', {
+                validateBeforeSubmitting: true,
+                errorFieldCssClass: 'is-invalid',
+                errorLabelStyle: {
+                    color: '#dc3545',
+                    fontSize: '0.875em',
+                },
+            });
+
+            validation
+                .addField('#document_type_id', [{
+                    rule: 'required',
+                    errorMessage: 'Seleccione un tipo de documento',
+                }])
+                .addField('#identification', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese el número de documento',
+                    },
+                    {
+                        rule: 'customRegexp',
+                        value: /^\d+$/, // Solo números (0-9)
+                        errorMessage: 'Solo se permiten números (0-9)',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#first_name', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese su nombre',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#last_name', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese su apellido',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#email', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese un correo',
+                    },
+                    {
+                        rule: 'email',
+                        errorMessage: 'Correo inválido',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#cellphone', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese su celular',
+                    },
+                    {
+                        rule: 'customRegexp',
+                        value: /^\d{10}$/,
+                        errorMessage: 'Debe tener  10 dígitos',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#professional_card', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese la tarjeta profesional',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#department', [{
+                        rule: 'required',
+                        errorMessage: 'Seleccione un Departamento',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#city', [{
+                        rule: 'required',
+                        errorMessage: 'Seleccione una ciudad',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#neighborhood', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese el barrio',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#address', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese la dirección',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#password', [{
+                        rule: 'required',
+                        errorMessage: 'La contraseña es obligatoria',
+                    },
+                    {
+                        rule: 'minLength',
+                        value: 8,
+                        errorMessage: 'Mínimo 8 caracteres',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    },
+                    {
+                        rule: 'customRegexp',
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/,
+                        errorMessage: 'Debe tener: 8+ caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial',
+                    },
+                ])
+                .addField('#password_confirmation', [{
+                        validator: (value, fields) => {
+                            return value === fields['#password'].elem.value;
+                        },
+                        errorMessage: 'Las contraseñas no coinciden',
+                    },
+
+                ])
+                .onSuccess(() => {
+                    document.getElementById('user-form').submit();
+                });;
+        </script>
     @endsection

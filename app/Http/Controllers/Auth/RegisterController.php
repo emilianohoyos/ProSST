@@ -47,7 +47,22 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        // dd('entro');
+        $document_type = DocumentType::all();
+        $person_type = PersonType::all();
+        if (auth()->check()) {
+            // Solo ADMIN puede ver la vista especial
+            if (auth()->user()->hasRole('ADMIN')) {
+                return view('admin.users.create', compact('document_type', 'person_type'));
+            }
+        }
+
+        // Usuario no autenticado (invitado) ve el formulario normal
+        return view('auth.register', compact('document_type', 'person_type'));
+    }
+
+    public function showRegistrationFormAdmin()
+    {
+        dd('entro');
         $document_type = DocumentType::all();
         $person_type = PersonType::all();
         return view('admin.users.create', compact('document_type', 'person_type'));
@@ -94,9 +109,13 @@ class RegisterController extends Controller
             'address' => $data['address']
 
         ]);
-        // Asignar el rol de ADMIN
-        if (!$user->hasRole('USUARIO')) {
-            $user->assignRole('USUARIO');
+        if (auth()->check()) {
+            // Asignar el rol 
+            if (auth()->user()->hasRole('ADMIN')) {
+                if (!$user->hasRole('USUARIO')) {
+                    $user->assignRole('USUARIO');
+                }
+            }
         }
         event(new Registered($user));
         return $user;

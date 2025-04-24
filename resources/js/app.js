@@ -591,9 +591,9 @@ File: Main Js File
         initComponents();
         initLanguage();
         layoutSetting();
-        initMenuItemScroll();
+        // initMenuItemScroll();
         initCheckAll();
-        console.log('este es');
+
     }
 
     init();

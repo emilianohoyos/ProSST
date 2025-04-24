@@ -104,7 +104,7 @@
                             <li><a href="{{ route('work-plan.index') }}" data-key="t-read-email">Consultar</a></li>
                         </ul>
                     </li>
-
+                    {{-- 
                     <li class="menu-title" data-key="t-applications">Mis Reportes</li>
                     <li>
                         <a href="apps-calendar">
@@ -123,10 +123,10 @@
                             <i class="fa fa-chart-line icon nav-icon"></i>
                             <span class="menu-item" data-key="t-calendar">Historicos Diagnosticos</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endhasanyrole
 
-                <li class="menu-title" data-key="t-applications">Applications</li>
+                {{-- <li class="menu-title" data-key="t-applications">Applications</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -370,7 +370,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

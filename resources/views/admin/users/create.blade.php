@@ -33,7 +33,7 @@
                     @endif
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}" class="auth-input">
+                        <form method="POST" action="{{ route('register') }}" id="user-form" class="auth-input">
                             @csrf
                             <div class="row">
                                 <div class="col md-6">
@@ -53,7 +53,7 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Identificacion <span
                                                 class="text-danger">*</span></label>
-                                        <input id="name" type="text"
+                                        <input id="identification" type="text"
                                             class="form-control @error('identification') is-invalid @enderror"
                                             name="identification" value="{{ old('identification') }}" required
                                             autocomplete="identification" autofocus placeholder="Ingrese Identificacion ">
@@ -87,7 +87,7 @@
                                         <input id="last_name" type="text"
                                             class="form-control @error('last_name') is-invalid @enderror" name="last_name"
                                             value="{{ old('last_name') }}" required autocomplete="last_name" autofocus
-                                            placeholder="Ingrese nombres">
+                                            placeholder="Ingrese Apellidos">
                                         @error('last_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -125,13 +125,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Celular <span
+                                        <label for="cellphone" class="form-label">Celular <span
                                                 class="text-danger">*</span></label>
-                                        <input id="name" type="text"
+                                        <input id="cellphone" type="text"
                                             class="form-control @error('cellphone') is-invalid @enderror" name="cellphone"
                                             value="{{ old('cellphone') }}" required autocomplete="cellphone" autofocus
                                             placeholder="Ingrese Celular ">
-                                        @error('Telefono')
+                                        @error('cellphone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -145,7 +145,8 @@
                                         <input id="professional_card" type="professional_card"
                                             class="form-control @error('professional_card') is-invalid @enderror"
                                             name="professional_card" value="{{ old('professional_card') }}" required
-                                            autocomplete="professional_card" placeholder="Ingrese Correo">
+                                            autocomplete="professional_card"
+                                            placeholder="Ingrese Numero tarjeta profesional">
                                         @error('professional_card')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -164,7 +165,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Departamento
+                                        <label for="department" class="form-label">Departamento
                                             <span class="text-danger">*</span></label>
                                         <select name="department" id="department" class="form-control">
                                             <option value="Antioquia">Antioquia</option>
@@ -176,7 +177,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Ciudad
+                                        <label for="city" class="form-label">Ciudad
                                             <span class="text-danger">*</span></label>
                                         <select name="city" id="city" class="form-control">
                                             <option value="Medellin">Medellin</option>
@@ -239,11 +240,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="password-confirm">Confirm
+                                        <label class="form-label" for="password_confirmation">Confirm
                                             Password <span class="text-danger">*</span></label>
                                         <input type="password"
-                                            class="form-control @error('password') is-invalid @enderror"
-                                            name="password_confirmation" required id="password-confirm"
+                                            class="form-control @error('password_confirmation') is-invalid @enderror"
+                                            name="password_confirmation" required id="password_confirmation"
                                             placeholder="Confirme contraseña">
                                     </div>
                                 </div>
@@ -279,5 +280,165 @@
         <!-- end col -->
     @endsection
     @section('scripts')
+        <script>
+            const validation = new JustValidate('#user-form', {
+                validateBeforeSubmitting: true,
+                errorFieldCssClass: 'is-invalid',
+                errorLabelStyle: {
+                    color: '#dc3545',
+                    fontSize: '0.875em',
+                },
+            });
+
+            validation
+                .addField('#document_type_id', [{
+                    rule: 'required',
+                    errorMessage: 'Seleccione un tipo de documento',
+                }])
+                .addField('#identification', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese el número de documento',
+                    },
+                    {
+                        rule: 'customRegexp',
+                        value: /^\d+$/, // Solo números (0-9)
+                        errorMessage: 'Solo se permiten números (0-9)',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#first_name', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese su nombre',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#last_name', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese su apellido',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#email', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese un correo',
+                    },
+                    {
+                        rule: 'email',
+                        errorMessage: 'Correo inválido',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#cellphone', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese su celular',
+                    },
+                    {
+                        rule: 'customRegexp',
+                        value: /^\d{10}$/,
+                        errorMessage: 'Debe tener  10 dígitos',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#professional_card', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese la tarjeta profesional',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#department', [{
+                        rule: 'required',
+                        errorMessage: 'Seleccione un Departamento',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#city', [{
+                        rule: 'required',
+                        errorMessage: 'Seleccione una ciudad',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#neighborhood', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese el barrio',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#address', [{
+                        rule: 'required',
+                        errorMessage: 'Ingrese la dirección',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    }
+                ])
+                .addField('#password-input', [{
+                        rule: 'required',
+                        errorMessage: 'La contraseña es obligatoria',
+                    },
+                    {
+                        rule: 'minLength',
+                        value: 8,
+                        errorMessage: 'Mínimo 8 caracteres',
+                    },
+                    {
+                        rule: 'maxLength',
+                        value: 191,
+                        errorMessage: 'Máximo 191 caracteres',
+                    },
+                    {
+                        rule: 'customRegexp',
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/,
+                        errorMessage: 'Debe tener: 8+ caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial',
+                    },
+                ])
+                .addField('#password_confirmation', [{
+                        validator: (value, fields) => {
+                            return value === fields['#password-input'].elem.value;
+                        },
+                        errorMessage: 'Las contraseñas no coinciden',
+                    },
+
+                ]).onSuccess(() => {
+                    document.getElementById('user-form').submit();
+                });;
+        </script>
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection
