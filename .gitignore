@@ -17,3 +17,8 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Ignora TODO en /storage/app EXCEPTO la carpeta templates
+/storage/app/**
+!/storage/app/templates/
+!/storage/app/templates/*
