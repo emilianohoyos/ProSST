@@ -40,11 +40,6 @@
                                             <td>{{ $item->identification }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                    data-bs-placement="top" title="ver" data-bs-toggle="modal"
-                                                    data-bs-target=".bs-example-modal-lg">
-                                                    <i class="fa fa-eye font-size-16 "></i>
-                                                </button>
                                                 <button type="button" data-bs-placement="top" title="Editar"
                                                     onclick="editarModal({{ $item->client_user_id }})"
                                                     class="btn btn-warning waves-effect waves-light">

@@ -23,7 +23,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Registrar nuevo Rol</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes Crear un nuevo Rol.
+                                    En esta sección puedes Crear un nuevo Rol.
                                 </p>
                             </div>
                             <div class="col-md-2 ">

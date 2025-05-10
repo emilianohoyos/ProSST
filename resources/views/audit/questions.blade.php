@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('title')
-    Auditoria PESV
+    Preguntas PESV
 @endsection
 @section('css')
     <!-- fullcalendar css -->
     <link href="{{ URL::asset('build/libs/fullcalendar/main.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('page-title')
-    Auditoria PESV
+    Preguntas PESV
 @endsection
 @section('body')
 @section('content')

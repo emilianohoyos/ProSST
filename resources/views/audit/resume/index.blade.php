@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Resumen de la auditoria
+    Resumen {{ $pesv_assesment->assessment_type }}
 @endsection
 
 @section('page-title')
-    Resumen de la auditoria
+    Resumen {{ $pesv_assesment->assessment_type }}
 @endsection
 
 @section('body')
@@ -39,7 +39,7 @@
         </div> --}}
 
         <div class="container">
-            <h2 class="mb-4">Resumen de Auditoría PESV</h2>
+            <h2 class="mb-4">Resumen {{ $pesv_assesment->assessment_type }} PESV</h2>
 
             <div class="card mb-4">
                 <div class="card-header">Información General</div>

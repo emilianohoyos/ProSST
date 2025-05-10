@@ -33,31 +33,31 @@
 
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                @role('ADMIN')
+                @hasanyrole('ADMIN|USUARIO')
                     <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                     <li>
-                        <a href="../index">
+                        <a href="{{ route('root') }}">
                             <i class="bx bx-home-alt icon nav-icon"></i>
                             <span class="menu-item" data-key="t-dashboard">Dashboard</span>
-                            <span class="badge rounded-pill bg-primary">2</span>
+                            {{-- <span class="badge rounded-pill bg-primary">2</span> --}}
                         </a>
                     </li>
+                    @role('ADMIN')
+                        <li class="menu-title" data-key="t-administration">Administracion</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i class="mdi mdi-account-cog icon nav-icon"></i>
+                                <span class="menu-item" data-key="t-email">Administrador.</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('roles.index') }}" data-key="t-inbox">Roles</a></li>
+                                <li><a href="{{ route('permissions.index') }}" data-key="t-inbox">Permisos</a></li>
+                                <li><a href="{{ route('users.index') }}" data-key="t-read-emails">Usuarios</a></li>
+                            </ul>
+                        </li>
+                    @endrole
 
-                    <li class="menu-title" data-key="t-administration">Administracion</li>
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow">
-                            <i class="mdi mdi-account-cog icon nav-icon"></i>
-                            <span class="menu-item" data-key="t-email">Administrador.</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('roles.index') }}" data-key="t-inbox">Roles</a></li>
-                            <li><a href="{{ route('permissions.index') }}" data-key="t-inbox">Permisos</a></li>
-                            <li><a href="{{ route('users.index') }}" data-key="t-read-emails">Usuarios</a></li>
-                        </ul>
-                    </li>
-                @endrole
-                @hasanyrole('ADMIN|USUARIO')
                     <li class="menu-title" data-key="t-management">Mi Gestión</li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow" data-key="t-client-link">

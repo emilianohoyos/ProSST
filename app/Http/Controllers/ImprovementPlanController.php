@@ -25,7 +25,7 @@ class ImprovementPlanController extends Controller
         $exists = PesvImprovementPlanAnswer::where('pesv_assessment_id', $assessment_id)->exists();
 
         if ($exists) {
-            return false;
+            return to_route('improvement-plan.index');;
         }
 
         $preguntas_cero_cumplimiento = Steps::select(
@@ -41,7 +41,7 @@ class ImprovementPlanController extends Controller
             ->join('qualifications', 'pesv_answers.qualification_id', '=', 'qualifications.id')
             ->where('pesv_answers.pesv_assessment_id', $assessment_id)
             ->where('qualifications.description', 'NO CUMPLE')
-            ->where('steps.id', '<>', 1)
+            ->where('steps.id', '<>', 0)
             ->orderBy('steps.id')
             ->orderBy('pesv_questions.id')
             ->get();
@@ -58,7 +58,7 @@ class ImprovementPlanController extends Controller
             ]);
         }
 
-        return true;
+        return to_route('improvement-plan.index');
     }
 
 

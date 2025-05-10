@@ -22,6 +22,13 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+    public function showRegistrationFormAdmin()
+    {
+        $document_type = DocumentType::all();
+        $person_type = PersonType::all();
+        return view('admin.users.create', compact('document_type', 'person_type'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -117,7 +124,7 @@ class UserController extends Controller
     {
         if ($user->hasRole($request->role)) {
             $user->removeRole($request->role);
-            return back()->with(['message-rol' => 'El Rol ha sido eliminado']);
+            return back()->with(['message-success-rol' => 'El Rol ha sido eliminado']);
         }
         return back()->with(['message-success-rol' => 'El rol no se encuentra asignado']);
     }
@@ -127,11 +134,11 @@ class UserController extends Controller
     {
 
         if ($user->hasPermissionTo($request->permission)) {
-            return back()->with(['message-success' => 'El Permiso ya se encuentra asignado']);
+            return back()->with(['message' => 'El Permiso ya se encuentra asignado']);
         }
 
         $user->givePermissionTo($request->permission);
-        return back()->with(['message' => 'El Permiso ha sido creado']);
+        return back()->with(['message-success' => 'El Permiso ha sido asignado']);
     }
 
     public function revokePermissionToUser(User $user, Request $request)
@@ -139,9 +146,9 @@ class UserController extends Controller
 
         if ($user->hasPermissionTo($request->permission)) {
             $user->revokePermissionTo($request->permission);
-            return back()->with(['message' => 'El Permiso ha sido eliminado']);
+            return back()->with(['message-success' => 'El Permiso ha sido eliminado']);
         }
-        return back()->with(['message-success' => 'El Permiso no se encuentra asignado']);
+        return back()->with(['message' => 'El Permiso no se encuentra asignado']);
     }
 
 

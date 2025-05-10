@@ -24,7 +24,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Editar nuevo Permiso</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes Crear un nuevo permiso.
+                                    En esta sección puedes Crear un nuevo permiso.
                                 </p>
                             </div>
                             <div class="col-md-2 ">
@@ -80,7 +80,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Roles Asignados al permiso: {{ $permission->name }}.</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes Ver los permisos Asociados al Rol: {{ $permission->name }}.
+                                    En esta sección puedes Ver los Roles Asociados al Permiso: {{ $permission->name }}.
                                 </p>
                             </div>
                             {{-- <div class="col-md-2 ">
@@ -125,7 +125,7 @@
                                 </form>
 
                             @empty
-                                <span>No hay permisos asignados</span>
+                                <span>No hay Roles asignados</span>
                             @endforelse
 
                         </div>

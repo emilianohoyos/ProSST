@@ -10,6 +10,8 @@ use App\Models\WorkPlanAnswers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use PhpOffice\PhpWord\TemplateProcessor;
 use Yajra\DataTables\Facades\DataTables;
 
 class WorkPlanController extends Controller
@@ -30,9 +32,9 @@ class WorkPlanController extends Controller
             'start_date' => $request->start_date,
             'end_date' => Carbon::parse($request->start_date)->addYear(),
             'preparation_date' => $request->preparation_date,
-            'name_president_committee' => $request->preparation_date,
-            'reviewed_by' => $request->preparation_date,
-            'approved_by' => $request->preparation_date,
+            'name_president_committee' => $request->name_president_committee,
+            'reviewed_by' => $request->reviewed_by,
+            'approved_by' => $request->approved_by,
             'objective' => 'Cumplir con la Implementacion del PESV, de acuerdo con la normatividad vigente, de forma que se logre una reducción en los siniestros viales.',
             'meta_description' => 'Ejecutar por lo menos el 90% de las actividades programadas en el Plan de trabajo de Seguridad Vial',
             'meta_numeric' => 90,
@@ -186,7 +188,7 @@ class WorkPlanController extends Controller
                     <a href="' . route('work.plan.answer', $assessment->assessment_id) . '" class="btn btn-sm btn-warning" title="Diligenciar Plan de trabajo">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="' . route('improvement.word', $assessment->assessment_id) . '" class="btn btn-sm btn-danger delete-btn title="descargar Plan de trabajo">
+                    <a href="' . route('work.plan.word', $assessment->assessment_id) . '" class="btn btn-sm btn-danger delete-btn title="descargar Plan de trabajo">
                         <i class="fas fa-file-alt"></i></i>
                     </a>
                     
@@ -319,5 +321,140 @@ class WorkPlanController extends Controller
         ];
 
         return response()->json(['success' => true, 'data' => $estadisticas]);
+    }
+
+
+    public function generateWordWorkPlan($assessment_id)
+    {
+        $pesv_assesments = PesvAssessment::select(
+            'pesv_assessments.id as assessment_id',
+            'pesv_assessments.user_id',
+            'users.first_name',
+            'users.last_name',
+            'users.professional_card',
+            'clients.identification as client_identification',
+            'clients.name as client_name',
+            'client_users.headquarters as client_headquarters',
+            'client_users.representative as client_representative',
+            'pesv_assessments.created_at as fecha_creacion',
+            'pesv_assessments.participants',
+            'pesv_assessments.key_aspects',
+            'work_plans.id as work_plan_id',
+            'work_plans.start_date',
+            'work_plans.end_date',
+            'work_plans.name_president_committee',
+            'work_plans.reviewed_by',
+            'work_plans.approved_by',
+            'work_plans.created_at as date_preparation',
+        )->join('users', 'pesv_assessments.user_id', 'users.id')
+            ->join('clients', 'pesv_assessments.client_id', 'clients.id')
+            ->join('client_users', function ($join) {
+                $join->on('pesv_assessments.client_id', '=', 'client_users.client_id')
+                    ->on('users.id', '=', 'client_users.user_id');
+            })
+            ->join('work_plans', 'pesv_assessments.id', 'work_plans.pesv_assessment_id')
+            ->find($assessment_id);
+
+        $work_plan = WorkPlanAnswers::select('work_plan_answers.*', 'work_plan_activities.*')
+            ->join('work_plan_activities', 'work_plan_answers.work_plan_activity_id', 'work_plan_activities.id')
+            ->where('work_plan_answers.work_plan_id', $pesv_assesments->work_plan_id)
+            ->orderBy('work_plan_answers.id')
+            ->get();
+
+
+        $cumple = WorkPlanAnswers::where('follow_up', 'CUMPLE')->where('work_plan_id', $pesv_assesments->work_plan_id)->count();
+        $parcial = WorkPlanAnswers::where('follow_up', 'CUMPLE PARCIALMENTE')->where('work_plan_id', $pesv_assesments->work_plan_id)->count();
+        $noCumple = WorkPlanAnswers::where('follow_up', 'NO CUMPLE')->where('work_plan_id', $pesv_assesments->work_plan_id)->count();
+        $total = WorkPlanAnswers::where('work_plan_id', $pesv_assesments->work_plan_id)->count();
+
+
+        $templatePath = storage_path('app/templates/prosst plantilla plan de trabajo.docx');
+        $template = new TemplateProcessor($templatePath);
+
+
+        $fechaInicio =  Carbon::parse($pesv_assesments->start_date);
+
+        // Generar meses para el cronograma
+        for ($i = 0; $i < 12; $i++) {
+            $mesFecha = $fechaInicio->copy()->addMonths($i);
+            $template->setValue('m' . $i + 1, $mesFecha->isoFormat('MMM'));
+        }
+
+        // // Asignar valores simples
+        $template->setValue('nit_organizacion', $pesv_assesments['client_identification']);
+        $template->setValue('nombre_organizacion', $pesv_assesments['client_name']);
+        $template->setValue('fecha_elaboracion', $pesv_assesments['date_preparation']);
+        $template->setValue('fecha_inicial', $pesv_assesments['start_date']);
+        $template->setValue('fecha_final', $pesv_assesments['end_date']);
+        $template->setValue('elabora', $pesv_assesments['first_name'] . ' ' . $pesv_assesments['last_name']);
+        $template->setValue('revisor', $pesv_assesments['reviewed_by']);
+        $template->setValue('aprobador', $pesv_assesments['approved_by']);
+        $template->setValue('nombre_organizacion2', $pesv_assesments['client_name']);
+        $template->setValue('fecha_inicial2', $pesv_assesments['start_date']);
+        $template->setValue('fecha_final2', $pesv_assesments['end_date']);
+
+        $template->cloneRow('actividades', count($work_plan));
+        foreach ($work_plan as $i => $row) {
+            $num = $i + 1;
+            $template->setValue("actividades#$num", "$row->activity");
+            $template->setValue("responsable#$num", "$row->responsible");
+            $template->setValue("1#$num", $row->month_1 ? '✔' : '◻');
+            $template->setValue("2#$num", $row->month_2 ? '✔' : '◻');
+            $template->setValue("3#$num", $row->month_3 ? '✔' : '◻');
+            $template->setValue("4#$num", $row->month_4 ? '✔' : '◻');
+            $template->setValue("5#$num", $row->month_5 ? '✔' : '◻');
+            $template->setValue("6#$num", $row->month_6 ? '✔' : '◻');
+            $template->setValue("7#$num", $row->month_7 ? '✔' : '◻');
+            $template->setValue("8#$num", $row->month_8 ? '✔' : '◻');
+            $template->setValue("9#$num", $row->month_9 ? '✔' : '◻');
+            $template->setValue("10#$num", $row->month_10 ? '✔' : '◻');
+            $template->setValue("11#$num", $row->month_11 ? '✔' : '◻');
+            $template->setValue("12#$num", $row->month_12 ? '✔' : '◻');
+            $template->setValue("seguimiento#$num", "$row->follow_up");
+            $template->setValue("f#$num", $row->resource_physical ? '✔' : '◻');
+            $template->setValue("e#$num", $row->resource_economic ? '✔' : '◻');
+            $template->setValue("h#$num", $row->resource_human ? '✔' : '◻');
+            $template->setValue("modo_verificacion#$num", "$row->verify_mode");
+        }
+        $template->setValue('evaluados', ($cumple + $noCumple + $parcial));
+        $template->setValue('total_items', $total);
+        $template->setValue('porcentaje_avance', ($cumple / $total) * 100);
+        $template->setValue('cantidad_no_cumple', $noCumple);
+        $template->setValue('porcentaje_no_cumple', ($noCumple / $total) * 100);
+        $template->setValue('cantidad_parcial', $parcial);
+        $template->setValue('porcentaje_parcial', ($parcial / $total) * 100);
+        $template->setValue('cantidad_cumple', $cumple);
+        $template->setValue('porcentaje_cumple', ($cumple / $total) * 100);
+
+
+        $template->setValue('elabora2', $pesv_assesments['first_name'] . ' ' . $pesv_assesments['last_name']);
+        $template->setValue('responsable_presidente', $pesv_assesments['reviewed_by']);
+        $template->setValue('responsable_aprueba', $pesv_assesments['client_name']);
+
+        // Verificar/Crear directorio temp si no existe
+        $tempDir = storage_path('app/temp');
+        if (!file_exists($tempDir)) {
+            mkdir($tempDir, 0755, true);
+        }
+
+        // Ruta completa del archivo temporal
+        $filename = 'plan_trabajo_pesv_' . $assessment_id . '_' . time() . '.docx';
+        $tempPath = $tempDir . '/' . $filename;
+
+        try {
+            // ... (tu lógica de generación del documento)
+
+            // Verificar que el archivo se creó antes de descargar
+            $template->saveAs($tempPath);
+            if (!file_exists($tempPath)) {
+                throw new \Exception("El archivo no se generó correctamente");
+            }
+
+            return response()->download($tempPath)
+                ->deleteFileAfterSend(true);
+        } catch (\Exception $e) {
+            // Log del error
+            Log::error('Error generando informe PESV: ' . $e->getMessage());
+        }
     }
 }

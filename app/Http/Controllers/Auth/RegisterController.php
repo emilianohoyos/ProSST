@@ -49,24 +49,11 @@ class RegisterController extends Controller
     {
         $document_type = DocumentType::all();
         $person_type = PersonType::all();
-        if (auth()->check()) {
-            // Solo ADMIN puede ver la vista especial
-            if (auth()->user()->hasRole('ADMIN')) {
-                return view('admin.users.create', compact('document_type', 'person_type'));
-            }
-        }
-
         // Usuario no autenticado (invitado) ve el formulario normal
         return view('auth.register', compact('document_type', 'person_type'));
     }
 
-    public function showRegistrationFormAdmin()
-    {
-        dd('entro');
-        $document_type = DocumentType::all();
-        $person_type = PersonType::all();
-        return view('admin.users.create', compact('document_type', 'person_type'));
-    }
+
 
     /**
      * Get a validator for an incoming registration request.

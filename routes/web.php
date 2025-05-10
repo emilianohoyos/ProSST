@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
@@ -35,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [HomeController::class, 'root'])->name('root');
         Route::get('/user-edit', [UserController::class, 'index'])->name('userEdit');
         Route::post('/user-update', [UserController::class, 'update'])->name('userUpdate');
+        Route::get('/user-register', [UserController::class, 'showRegistrationFormAdmin'])->name('userRegister');
 
         Route::resource('/roles', RoleController::class);
         Route::post('/role/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
@@ -90,13 +92,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('work-plan-answer/{assessment_id}', [WorkPlanController::class, 'indexAnswer'])->name('work.plan.answer');
         Route::get('work-plan-datatable-details/{work_plan_id}', [WorkPlanController::class, 'datatableWorkPlanDetails'])->name('work.plan.details');
         Route::get('work-plan-resume/{work_plan_id}', [WorkPlanController::class, 'dataResumeWorkPlan'])->name('work.plan.resume');
+        Route::get('work-plan-word/{assessment_id}', [WorkPlanController::class, 'generateWordWorkPlan'])->name('work.plan.word');
 
 
         Route::post('/ask-assistant', [AssistantController::class, 'ask']);
     });
 });
 
-Route::post('/chat', [ChatBotController::class, 'ask'])->name('chat.ask');
+// Route::post('/chat', [ChatBotController::class, 'ask'])->name('chat.ask');
 
-Route::get('assessment', [AuditController::class, 'assessment'])->name('audit.assessment');
-Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index')->withoutMiddleware(['auth']);
+// Route::get('assessment', [AuditController::class, 'assessment'])->name('audit.assessment');
+// Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index')->withoutMiddleware(['auth']);

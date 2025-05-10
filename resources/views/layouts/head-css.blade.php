@@ -20,7 +20,7 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        max-width: 300px;
+        max-width: 535px;
         border-radius: 8px;
         overflow: hidden;
         display: none;

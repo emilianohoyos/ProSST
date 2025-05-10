@@ -217,7 +217,18 @@
                 // Crea y muestra la respuesta del bot
                 const botMessage = document.createElement("div");
                 botMessage.classList.add("message", "bot-message");
-                botMessage.textContent = data.answer || "No pude obtener una respuesta";
+
+                // Convertir markdown a HTML (puedes usar una librería como marked)
+                if (data.answer) {
+                    // Si usas la librería marked (debes incluirla previamente)
+                    botMessage.innerHTML = marked.parse(data.answer);
+
+                    // Alternativa básica si no quieres usar una librería
+                    // botMessage.innerHTML = simpleMarkdownToHTML(data.answer);
+                } else {
+                    botMessage.textContent = "No pude obtener una respuesta";
+                }
+
                 chatMessages.appendChild(botMessage);
             })
             .catch(error => {

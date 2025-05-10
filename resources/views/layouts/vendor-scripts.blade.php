@@ -9,4 +9,5 @@
 <script src="{{ URL::asset('build/libs/select2/select2.full.min.js') }}"></script>
 {{-- <script src="{{ URL::asset('build/libs/jquery-validation/jquery.validate.min.js') }}"></script> --}}
 <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 @yield('scripts')

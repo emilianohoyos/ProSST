@@ -22,6 +22,7 @@ use Monolog\Level;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpParser\Node\Expr\FuncCall;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class AuditController extends Controller
 {
@@ -148,7 +149,7 @@ class AuditController extends Controller
             ->join('application_levels', 'pesv_assessments.application_level_id', '=', 'application_levels.id')
             ->join('states', 'pesv_assessments.state_id', '=', 'states.id')
             ->join('assessment_types', 'pesv_assessments.assessment_type_id', '=', 'assessment_types.id')
-            ->where('pesv_assessments.user_id', 1)
+            ->where('pesv_assessments.user_id', Auth::id())
             ->orderBy('pesv_assessments.id', 'desc')
             ->get();
 
@@ -175,16 +176,13 @@ class AuditController extends Controller
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen del Diagnostico</a></li>
-                            <li><a class="dropdown-item" href="' . route('audit.inform', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-download"></i> Descargar Informe</a></li>
+                            <li><button class="dropdown-item" onclick="updateInfo(' . $assessment->assessment_id . ')"><i class="fas fa-download"></i> Descargar Acta </a></button></li>
                             <li><button class="dropdown-item" onclick="createWorkPlan(' . $assessment->assessment_id . ')"><i class="fas fa-clipboard-list"></i> Crear Plan de Trabajo </a></button></li>
                         </ul>
                     </div>';
                     }
                 } else {
                     $html = '
-                    <a href="' . route('audit.show', $assessment->assessment_id) . '" class="btn btn-sm btn-primary">
-                        <i class="fas fa-eye"></i>
-                    </a>
                     <a href="' . route('audit.edit', $assessment->assessment_id) . '" class="btn btn-sm btn-warning">
                         <i class="fas fa-edit"></i>
                     </a>
@@ -266,7 +264,7 @@ class AuditController extends Controller
             <div class="d-grid gap-2 mt-3">
             <button onClick="finalizarAuditoria(' . $assessment_id . ')" 
                class="btn btn-success btn-lg waves-effect waves-light">
-                <i class="fas fa-check-circle"></i> Finalizar Auditoría
+                <i class="fas fa-check-circle"></i> Finalizar Evaluación
             </button>
         </div>' : '')
             ->make(true);
@@ -369,6 +367,7 @@ class AuditController extends Controller
             'pesv_assessments.created_at as fecha_creacion',
             'pesv_assessments.participants',
             'pesv_assessments.key_aspects',
+            'assessment_types.name as assessment_type'
 
         )
             ->join('users', 'pesv_assessments.user_id', 'users.id')
@@ -377,6 +376,7 @@ class AuditController extends Controller
                 $join->on('pesv_assessments.client_id', '=', 'client_users.client_id')
                     ->on('users.id', '=', 'client_users.user_id');
             })
+            ->join('assessment_types', 'pesv_assessments.assessment_type_id', 'assessment_types.id')
             ->join('application_levels', 'pesv_assessments.application_level_id', 'application_levels.id')
             ->find($auditoria_id);
 
@@ -423,7 +423,7 @@ class AuditController extends Controller
             ->join('qualifications', 'pesv_answers.qualification_id', '=', 'qualifications.id')
             ->where('pesv_answers.pesv_assessment_id', $auditoria_id)
             ->where('qualifications.description', 'NO CUMPLE')
-            ->where('steps.id', '<>', 1)
+            ->where('steps.id', '<>', 0)
             ->orderBy('steps.id')
             ->orderBy('pesv_questions.id')
             ->get();
@@ -490,6 +490,9 @@ class AuditController extends Controller
 
         // Asignar valores simples
         $template->setValue('pesv_assessment', $pesv_assesments['assessment_id']);
+        $template->setValue('tipo_evaluacion_1', Str::upper($pesv_assesments['assessment_type']));
+        $template->setValue('tipo_evaluacione2', Str::upper($pesv_assesments['assessment_type']));
+        $template->setValue('tipo_evaluacion', $pesv_assesments['assessment_type']);
         $template->setValue('nit_organizacion', $pesv_assesments['client_identification']);
         $template->setValue('nombre_organizacion', $pesv_assesments['client_name']);
         $template->setValue('fecha_evaluacion', Carbon::now());
@@ -639,7 +642,8 @@ La organización exhibe un cumplimiento ejemplar de los requisitos normativos y 
             'client_users.headquarters as client_headquarters',
             'client_users.representative as client_representative',
             'application_levels.name_level as application_level',
-            'pesv_assessments.created_at as fecha_creacion'
+            'pesv_assessments.created_at as fecha_creacion',
+            'assessment_types.name as assessment_type'
         )
             ->join('users', 'pesv_assessments.user_id', 'users.id')
             ->join('clients', 'pesv_assessments.client_id', 'clients.id')
@@ -648,6 +652,7 @@ La organización exhibe un cumplimiento ejemplar de los requisitos normativos y 
                     ->on('users.id', '=', 'client_users.user_id');
             })
             ->join('application_levels', 'pesv_assessments.application_level_id', 'application_levels.id')
+            ->join('assessment_types', 'pesv_assessments.assessment_type_id', 'assessment_types.id')
             ->find($auditoria_id);
 
         // Calificaciones totales

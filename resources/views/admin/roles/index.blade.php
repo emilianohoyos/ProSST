@@ -25,7 +25,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Gestión de Roles</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes ver, crear, editar y eliminar Roles.
+                                    En esta sección puedes ver, crear, editar y eliminar Roles.
                                 </p>
                             </div>
                             <div class="col-md-2 ">
@@ -53,8 +53,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Fecha Creacion</th>
-                                        <th>Accion</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Acción</th>
 
                                     </tr>
                                 </thead>
@@ -71,7 +71,7 @@
                                                             class="mdi mdi-pencil d-block font-size-16"></i></a>
                                                     <form method="POST" action="{{ route('roles.destroy', $rol->id) }}"
                                                         class="d-inline-block"
-                                                        onsubmit="return confirm('Esta Seguro De eliminar el Permiso {{ $rol->name }}?');">
+                                                        onsubmit="return confirmRoleDelete(event, '{{ $rol->name }}');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
@@ -103,4 +103,33 @@
     @endsection
     @section('scripts')
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        <script>
+            function confirmRoleDelete(event, roleName) {
+                event.preventDefault(); // Evita el envío inmediato del formulario
+
+                Swal.fire({
+                    title: '¿Eliminar Rol?',
+                    text: `¿Está seguro de eliminar el rol "${roleName}"? Esta acción no se puede deshacer.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33', // Rojo para acciones destructivas
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    dangerMode: true, // Efecto adicional para acciones críticas
+                    backdrop: `
+                        rgba(220,53,69,0.4)
+                        url("/images/alert-danger.png")
+                        center top
+                        no-repeat
+                    `
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        event.target.submit(); // Envía el formulario si se confirma
+                    }
+                });
+
+                return false;
+            }
+        </script>
     @endsection

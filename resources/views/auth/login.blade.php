@@ -45,7 +45,7 @@
                                     @endif
                                     <div class="text-center mt-2">
                                         <h5>Bienvenido</h5>
-                                        <p class="text-muted">Inicia sesion para ingresar ProSST.</p>
+                                        <p class="text-muted">Inicia sesión para ingresar ProSST.</p>
                                     </div>
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('login') }}" class="auth-input">
@@ -67,7 +67,7 @@
                                             <div class="mb-3">
                                                 <div class="float-end">
                                                     <a href="{{ route('password.update') }}"
-                                                        class="text-muted text-decoration-underline">Olvido Contraseña?</a>
+                                                        class="text-muted text-decoration-underline">¿Olvido Contraseña?</a>
                                                 </div>
                                                 <label class="form-label" for="password-input">Contraseña <span
                                                         class="text-danger">*</span></label>
@@ -93,11 +93,11 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember"
                                                     id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="remember">Recuerdame</label>
+                                                <label class="form-check-label" for="remember">Recuérdame</label>
                                             </div>
 
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Iniciar sesion</button>
+                                                <button class="btn btn-primary w-100" type="submit">Iniciar sesión</button>
                                             </div>
                                             <div class="mt-4 text-center">
                                                 <p class="mb-0">No tienes Cuenta? <a href="{{ route('register') }}"

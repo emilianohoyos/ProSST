@@ -22,11 +22,11 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Gestión de Usuarios</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes ver,crear, editar y eliminar Usuarios.
+                                    En esta sección puedes ver,crear, editar y eliminar Usuarios.
                                 </p>
                             </div>
                             <div class="col-md-2 ">
-                                <a href="{{ route('register') }}" type="button"
+                                <a href="{{ route('userRegister') }}" type="button"
                                     class="btn btn-primary waves-effect w-full waves-light">Crear
                                     Usuario</a>
                             </div>
@@ -47,10 +47,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Identificacion</th>
+                                        <th>Identificación</th>
                                         <th>Correo</th>
-                                        <th>Fecha Creacion</th>
-                                        <th>Accion</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Acción</th>
 
                                     </tr>
                                 </thead>

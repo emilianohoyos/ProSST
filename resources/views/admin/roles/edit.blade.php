@@ -23,7 +23,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Editar Rol</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes Editar un Rol.
+                                    En esta sección puedes Editar un Rol.
                                 </p>
                             </div>
                             <div class="col-md-2 ">
@@ -79,7 +79,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Permisos Asignados al Rol: {{ $role->name }}.</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes Ver los permisos Asociados al Rol: {{ $role->name }}.
+                                    En esta sección puedes Ver los permisos Asociados al Rol: {{ $role->name }}.
                                 </p>
                             </div>
                             {{-- <div class="col-md-2 ">
@@ -115,7 +115,7 @@
                                 <form method="POST"
                                     action="{{ route('roles.permissions.revoke', [$role->id, $role_permission->name]) }}"
                                     class="d-inline-block"
-                                    onsubmit="return confirm('Esta Seguro De Remover el permiso {{ $role_permission->name }}?');">
+                                    onsubmit="return confirmRevoke(event, '{{ $role_permission->name }}');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger w-xs waves-effect waves-light">
@@ -161,4 +161,27 @@
     @endsection
     @section('scripts')
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        <script>
+            function confirmRevoke(event, permissionName) {
+                event.preventDefault(); // Detiene el envío automático
+
+                Swal.fire({
+                    title: '¿Confirmar acción?',
+                    text: `¿Está seguro de remover el permiso "${permissionName}"?`,
+                    icon: 'question', // Cambiado a 'question' para diferenciar de eliminación
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, remover',
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true // Opcional: invierte el orden de los botones
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        event.target.submit(); // Envía el formulario si se confirma
+                    }
+                });
+
+                return false; // Evita el comportamiento por defecto del formulario
+            }
+        </script>
     @endsection

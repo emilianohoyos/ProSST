@@ -22,7 +22,7 @@
                             <div class="col-md-10">
                                 <h4 class="card-title">Gestión de Permisos</h4>
                                 <p class="card-title-desc">
-                                    En esta seccion puedes ver, crear, editar y eliminar Permisos.
+                                    En esta sección puedes ver, crear, editar y eliminar Permisos.
                                 </p>
                             </div>
                             <div class="col-md-2 ">
@@ -37,7 +37,7 @@
                             <div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show"
                                 role="alert">
                                 <i
-                                    class="mdi mdi-check-all label-icon"></i><strong>Exito</strong>-{{ Session::get('message') }}
+                                    class="mdi mdi-check-all label-icon"></i><strong>Éxito</strong>-{{ Session::get('message') }}
 
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
@@ -49,8 +49,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Fecha Creacion</th>
-                                        <th>Accion</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Acción</th>
 
                                     </tr>
                                 </thead>
@@ -67,7 +67,7 @@
                                                 <form method="POST"
                                                     action="{{ route('permissions.destroy', $permission->id) }}"
                                                     class="d-inline-block"
-                                                    onsubmit="return confirm('Esta Seguro De eliminar el Permiso {{ $permission->name }}?');">
+                                                    onsubmit="return confirmDelete(event, '{{ $permission->name }}');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -94,4 +94,27 @@
     @endsection
     @section('scripts')
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        <script>
+            function confirmDelete(event, permissionName) {
+                event.preventDefault(); // Previene el envío inmediato del formulario
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: `Esta seguro de eliminar el permiso ${permissionName}?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, envía el formulario
+                        event.target.submit();
+                    }
+                });
+
+                return false; // Importante para evitar el envío del formulario
+            }
+        </script>
     @endsection

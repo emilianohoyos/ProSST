@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-    Auditoria Y diasnostico PESV
+    Auditoria y diagnóstico PESV
 @endsection
 @section('css')
 @endsection
 @section('page-title')
-    Mis Auditorias Y diasnosticos
+    Mis Auditoria y diagnóstico PESV
 @endsection
 @section('body')
 
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Mis Auditorias y diasnosticos</h4>
+                        <h4 class="card-title">Mis Auditoria y diagnóstico PESV</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
