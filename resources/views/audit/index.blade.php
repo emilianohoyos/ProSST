@@ -162,7 +162,6 @@
             function saveWorkPlan() {
                 event.preventDefault();
                 let plan_assesment_id = document.getElementById('plan_assessment_id').value
-                alert(plan_assesment_id)
                 const form = document.getElementById('createWorkPlanForm');
                 const formData = new FormData(form);
                 console.log(formData);
