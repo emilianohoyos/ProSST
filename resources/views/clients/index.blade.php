@@ -30,6 +30,7 @@
                                         <th>#</th>
                                         <th>Nit/Identificación</th>
                                         <th>Razón Social/Nombre</th>
+                                        <th>Sede</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -38,6 +39,7 @@
                                         <tr>
                                             <th scope="row">{{ $item->id }}</th>
                                             <td>{{ $item->identification }}</td>
+                                            <td>{{ $item->headquarters }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>
                                                 <button type="button" data-bs-placement="top" title="Editar"

@@ -19,7 +19,7 @@ class ClientController extends Controller
     {
         $document_type = DocumentType::all();
         $person_type = PersonType::all();
-        $clients = Client::select('client_users.id as client_user_id', 'clients.*')  // <-
+        $clients = Client::select('client_users.id as client_user_id', 'client_users.headquarters', 'clients.*')  // <-
             ->join('client_users', 'clients.id', '=', 'client_users.client_id')
             ->where('client_users.user_id', Auth::id())->paginate(5);
         return view('clients.index', compact('clients', 'document_type', 'person_type'));
