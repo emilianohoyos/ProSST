@@ -248,7 +248,7 @@ class WorkPlanController extends Controller
         )
             ->join('work_plan_activities', 'work_plan_answers.work_plan_activity_id', 'work_plan_activities.id')
             ->where('work_plan_id', $work_plan_id)
-            ->orderBy('work_plan_answers.activity', 'asc')
+            ->orderBy('work_plan_answers.id')
             ->get();
 
         return DataTables::of($items_work_plan)
