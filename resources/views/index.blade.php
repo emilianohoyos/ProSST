@@ -280,12 +280,12 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             /*
-                                                                                                                                                                                                                                                                                                                                                        Template Name: webadmin - Admin & Dashboard Template
-                                                                                                                                                                                                                                                                                                                                                        Author: Themesdesign
-                                                                                                                                                                                                                                                                                                                                                        Website: https://Themesdesign.com/
-                                                                                                                                                                                                                                                                                                                                                        Contact: Themesdesign@gmail.com
-                                                                                                                                                                                                                                                                                                                                                        File: Dashboard Ecommerce
-                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
+                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
+                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
+                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
+                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
+                                                                                                                                                                                                                                                                                                                                                                */
 
 
 
@@ -503,7 +503,7 @@
             var barchartColors = getChartColorsArray("overview");
             var options = {
                 series: [{
-                    data: [4, 6, 10, 17, 15, 19, 23, 27, 29, 25, 32, 35]
+                    data: [0, 0, 0, 10, 6, 0, 0, 0, 0, 0, 0, 0]
                 }],
                 chart: {
                     toolbar: {
