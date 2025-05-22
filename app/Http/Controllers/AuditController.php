@@ -188,9 +188,7 @@ class AuditController extends Controller
                     <a href="' . route('audit.edit', $assessment->assessment_id) . '" class="btn btn-sm btn-warning">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $assessment->assessment_id . '">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                
                 ';
                 }
 

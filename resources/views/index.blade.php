@@ -280,12 +280,12 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             /*
-                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
-                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
-                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
-                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
-                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
-                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
+                                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
+                                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
+                                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
+                                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
+                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
 
@@ -356,6 +356,12 @@
                         enabled: true
                     }
                 },
+                colors: [
+                    '#3B76EF', '#63C7FF', '#8FD7FF',
+                    '#F9B234', '#F2716A', '#8FD7FF',
+                    '#3B76EF', '#63C7FF', '#8FD7FF',
+                    '#F9B234', '#F2716A', '#8FD7FF'
+                ],
                 fill: {
                     type: 'gradient',
                     gradient: {
