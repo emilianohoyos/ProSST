@@ -85,16 +85,6 @@
                                             <span class="fw-bold">50%</span>
                                         </div>
                                     </div>
-
-                                    <div class="d-flex align-items-center mt-2">
-                                        <i class="mdi mdi-circle font-size-10 text-info "></i>
-                                        <div class="flex-grow-1 ms-2 overflow-hidden">
-                                            <p class="font-size-15 mb-0 text-truncate">En Gestión</p>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <span class="fw-bold">0%</span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -280,12 +270,12 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             /*
-                                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
-                                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
-                                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
-                                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
-                                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
-                                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
+                                                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
+                                                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
+                                                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
+                                                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
+                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
 
@@ -562,8 +552,8 @@
                     height: 350,
                     type: 'donut',
                 },
-                series: [1, 1, 1],
-                labels: ["Creado", "En gestión", "Finalizado"],
+                series: [1, 1],
+                labels: ["Creado", "Finalizado"],
                 colors: barchartColors,
                 plotOptions: {
                     pie: {
