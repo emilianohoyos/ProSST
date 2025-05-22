@@ -82,7 +82,7 @@
                                             <p class="font-size-15 mb-1 text-truncate">Creado</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-2">
-                                            <span class="fw-bold">34.3%</span>
+                                            <span class="fw-bold">50%</span>
                                         </div>
                                     </div>
 
@@ -92,7 +92,7 @@
                                             <p class="font-size-15 mb-0 text-truncate">En Gestión</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-2">
-                                            <span class="fw-bold">25.7%</span>
+                                            <span class="fw-bold">0%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                                             <p class="font-size-15 mb-1 text-truncate">Finalizado</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-2">
-                                            <span class="fw-bold">18.6%</span>
+                                            <span class="fw-bold">50%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                 </div>
 
                                 <div>
-                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">10 </h4>
+                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">2 </h4>
                                     <div class="d-flex mt-1 align-items-end overflow-hidden">
                                         <div class="flex-grow-1">
                                             <p class="text-muted mb-0 text-truncate">Total Auditoría</p>
@@ -184,7 +184,7 @@
                                 </div>
 
                                 <div>
-                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">12</h4>
+                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">1</h4>
                                     <div class="d-flex mt-1 align-items-end overflow-hidden">
                                         <div class="flex-grow-1">
                                             <p class="text-muted mb-0 text-truncate">Total Plan de mejora</p>
@@ -217,7 +217,7 @@
                                 </div>
 
                                 <div>
-                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">4<span
+                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">1<span
                                             class="text-success fw-medium font-size-13 align-middle"> </h4>
                                     <div class="d-flex mt-1 align-items-end overflow-hidden">
                                         <div class="flex-grow-1">
@@ -250,7 +250,7 @@
                                 </div>
 
                                 <div>
-                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">12 </h4>
+                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">1 </h4>
                                     <div class="d-flex mt-1 align-items-end overflow-hidden">
                                         <div class="flex-grow-1">
                                             <p class="text-muted mb-0 text-truncate">Total Plan de trabajo</p>
@@ -280,12 +280,12 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             /*
-                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
-                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
-                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
-                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
-                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
-                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                        Template Name: webadmin - Admin & Dashboard Template
+                                                                                                                                                                                                                                                                                                                                                                                        Author: Themesdesign
+                                                                                                                                                                                                                                                                                                                                                                                        Website: https://Themesdesign.com/
+                                                                                                                                                                                                                                                                                                                                                                                        Contact: Themesdesign@gmail.com
+                                                                                                                                                                                                                                                                                                                                                                                        File: Dashboard Ecommerce
+                                                                                                                                                                                                                                                                                                                                                                                        */
 
 
 
@@ -556,7 +556,7 @@
                     height: 350,
                     type: 'donut',
                 },
-                series: [24, 18, 13],
+                series: [1, 0, 1],
                 labels: ["Creado", "En gestión", "Finalizado"],
                 colors: barchartColors,
                 plotOptions: {
