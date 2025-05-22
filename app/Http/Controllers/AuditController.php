@@ -166,6 +166,7 @@ class AuditController extends Controller
                             <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen de la auditoria</a></li>
                             <li><button class="dropdown-item" onclick="updateInfo(' . $assessment->assessment_id . ')"><i class="fas fa-download"></i> Descargar Acta </a></button></li>
                              <li><a class="dropdown-item" href="' . route('improvement.generate', ['assessment_id' => $assessment->assessment_id]) . '"><i class="fas fa-tools" title="Plan de Mejora"></i> Crear Plan de Mejora</a></li>
+                             <li><button class="dropdown-item" onclick="createWorkPlan(' . $assessment->assessment_id . ')"><i class="fas fa-clipboard-list"></i> Crear Plan de Trabajo </a></button></li>
 
                         </ul>
                     </div>';
@@ -177,6 +178,7 @@ class AuditController extends Controller
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="' . route('audit.resume', ['auditoria_id' => $assessment->assessment_id]) . '"><i class="fas fa-eye"></i> Ver Resumen del Diagnostico</a></li>
                             <li><button class="dropdown-item" onclick="updateInfo(' . $assessment->assessment_id . ')"><i class="fas fa-download"></i> Descargar Acta </a></button></li>
+                            <li><a class="dropdown-item" href="' . route('improvement.generate', ['assessment_id' => $assessment->assessment_id]) . '"><i class="fas fa-tools" title="Plan de Mejora"></i> Crear Plan de Mejora</a></li>
                             <li><button class="dropdown-item" onclick="createWorkPlan(' . $assessment->assessment_id . ')"><i class="fas fa-clipboard-list"></i> Crear Plan de Trabajo </a></button></li>
                         </ul>
                     </div>';
@@ -491,7 +493,7 @@ class AuditController extends Controller
         // Asignar valores simples
         $template->setValue('pesv_assessment', $pesv_assesments['assessment_id']);
         $template->setValue('tipo_evaluacion_1', Str::upper($pesv_assesments['assessment_type']));
-        $template->setValue('tipo_evaluacione2', Str::upper($pesv_assesments['assessment_type']));
+        $template->setValue('tipo_evaluacion2', Str::upper($pesv_assesments['assessment_type']));
         $template->setValue('tipo_evaluacion', $pesv_assesments['assessment_type']);
         $template->setValue('nit_organizacion', $pesv_assesments['client_identification']);
         $template->setValue('nombre_organizacion', $pesv_assesments['client_name']);

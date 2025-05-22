@@ -112,7 +112,7 @@
                 // const url = `/client/${client_user_id}`;
                 const form = document.getElementById('ComplementInfoForm');
                 const formData = new FormData(form);
-                console.log(formData);
+
                 Swal.fire({
                     title: '¿Estás seguro?',
                     text: '¿Deseas guardar los datos?',

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> @yield('title') | Webadmin - Admin & Dashboard Template</title>
+    <title> @yield('title') | Prosst</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    
+
     @yield('content')
 
     <!-- vendor-scripts -->

@@ -122,6 +122,7 @@ class ImprovementPlanController extends Controller
             ->leftJoin('status_actions', 'pesv_improvement_plan_answers.status_action_id', '=', 'status_actions.id')
 
             ->where('pesv_improvement_plan_answers.id', $id)
+            ->orderBy('pesv_improvement_plan_answers.id')
             ->get();
 
         if ($preguntas_cero_cumplimiento->isEmpty()) {
@@ -316,6 +317,7 @@ class ImprovementPlanController extends Controller
             ->leftJoin('status_actions', 'pesv_improvement_plan_answers.status_action_id', '=', 'status_actions.id')
 
             ->where('pesv_improvement_plan_answers.pesv_assessment_id', $assessment_id)
+            ->orderBy('pesv_improvement_plan_answers.id', 'asc')
             ->get();
 
         return DataTables::of($preguntas_cero_cumplimiento)
@@ -380,6 +382,7 @@ class ImprovementPlanController extends Controller
             ->leftJoin('improvement_actions', 'pesv_improvement_plan_answers.improvement_action_id', '=', 'improvement_actions.id')
             ->leftJoin('status_actions', 'pesv_improvement_plan_answers.status_action_id', '=', 'status_actions.id')
             ->where('pesv_improvement_plan_answers.pesv_assessment_id', $assessment_id)
+            ->orderBy('pesv_improvement_plan_answers.id', 'asc')
             ->get();
 
         $firma_evaluador = User::find($pesv_assesments->user_id);
