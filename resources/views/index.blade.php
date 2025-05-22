@@ -280,12 +280,12 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             /*
-                                                                                                                                                                                                                                                                                                                                                                                        Template Name: webadmin - Admin & Dashboard Template
-                                                                                                                                                                                                                                                                                                                                                                                        Author: Themesdesign
-                                                                                                                                                                                                                                                                                                                                                                                        Website: https://Themesdesign.com/
-                                                                                                                                                                                                                                                                                                                                                                                        Contact: Themesdesign@gmail.com
-                                                                                                                                                                                                                                                                                                                                                                                        File: Dashboard Ecommerce
-                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
+                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
+                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
+                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
+                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
+                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
 
@@ -556,7 +556,7 @@
                     height: 350,
                     type: 'donut',
                 },
-                series: [1, 0, 1],
+                series: [1, 1, 1],
                 labels: ["Creado", "En gestión", "Finalizado"],
                 colors: barchartColors,
                 plotOptions: {
