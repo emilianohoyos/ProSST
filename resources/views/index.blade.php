@@ -142,7 +142,7 @@
                                 </div>
 
                                 <div>
-                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">2 </h4>
+                                    <h4 class="mt-4 pt-1 mb-0 font-size-22">1 </h4>
                                     <div class="d-flex mt-1 align-items-end overflow-hidden">
                                         <div class="flex-grow-1">
                                             <p class="text-muted mb-0 text-truncate">Total Auditoría</p>
@@ -270,12 +270,12 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
-                                                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
-                                                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
-                                                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
-                                                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
-                                                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                Template Name: webadmin - Admin & Dashboard Template
+                                                                                                                                                                                                                                                                                                                                                                                                                                                Author: Themesdesign
+                                                                                                                                                                                                                                                                                                                                                                                                                                                Website: https://Themesdesign.com/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                Contact: Themesdesign@gmail.com
+                                                                                                                                                                                                                                                                                                                                                                                                                                                File: Dashboard Ecommerce
+                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
 
@@ -346,12 +346,7 @@
                         enabled: true
                     }
                 },
-                colors: [
-                    '#3B76EF', '#63C7FF', '#8FD7FF',
-                    '#F9B234', '#F2716A', '#8FD7FF',
-                    '#3B76EF', '#63C7FF', '#8FD7FF',
-                    '#F9B234', '#F2716A', '#8FD7FF'
-                ],
+
                 fill: {
                     type: 'gradient',
                     gradient: {
@@ -499,7 +494,7 @@
             var barchartColors = getChartColorsArray("overview");
             var options = {
                 series: [{
-                    data: [0, 0, 0, 10, 6, 0, 0, 0, 0, 0, 0, 0]
+                    data: [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]
                 }],
                 chart: {
                     toolbar: {
@@ -534,7 +529,12 @@
                 legend: {
                     show: false
                 },
-                colors: barchartColors,
+                colors: [
+                    '#3B76EF', '#63C7FF', '#8FD7FF',
+                    '#F9B234', '#F2716A', '#8FD7FF',
+                    '#3B76EF', '#63C7FF', '#8FD7FF',
+                    '#F9B234', '#F2716A', '#8FD7FF'
+                ],
                 xaxis: {
                     categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                 }
