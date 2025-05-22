@@ -34,6 +34,9 @@ Auth::routes(['verify' => true]);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:ADMIN'])->group(function () {
         Route::get('/', [HomeController::class, 'root'])->name('root');
+        Route::get('/dashboard', function () {
+            return redirect('/');
+        });
         Route::get('/user-edit', [UserController::class, 'index'])->name('userEdit');
         Route::post('/user-update', [UserController::class, 'update'])->name('userUpdate');
         Route::get('/user-register', [UserController::class, 'showRegistrationFormAdmin'])->name('userRegister');
