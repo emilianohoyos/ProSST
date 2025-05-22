@@ -45,7 +45,7 @@ class ClientController extends Controller
             [
                 'document_type_id' => 'required|exists:document_types,id',
                 'person_type_id'   => 'required|exists:person_types,id',
-                'identification'   => 'required|string|max:20|unique:clients,identification',
+                'identification'   => 'required|string|max:20',
                 'name'             => 'required|string|max:255',
                 'email'            => 'required|email|max:255|unique:clients,email',
                 'headquarters'             => 'required|string|max:255',
