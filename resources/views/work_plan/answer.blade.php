@@ -196,6 +196,7 @@
                         leftColumns: 2,
                         rightColumns: 1
                     },
+                    order: [],
                     ajax: "{{ route('work.plan.details', ['work_plan_id' => $work_plan_id]) }}",
                     columns: [{
                             data: 'activity',
