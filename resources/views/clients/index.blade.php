@@ -27,7 +27,7 @@
 
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+
                                         <th>Nit/Identificación</th>
                                         <th>Razón Social/Nombre</th>
                                         <th>Sede</th>
@@ -37,10 +37,10 @@
                                 <tbody>
                                     @foreach ($clients as $item)
                                         <tr>
-                                            <th scope="row">{{ $item->id }}</th>
+
                                             <td>{{ $item->identification }}</td>
-                                            <td>{{ $item->headquarters }}</td>
                                             <td>{{ $item->name }}</td>
+                                            <td>{{ $item->headquarters }}</td>
                                             <td>
                                                 <button type="button" data-bs-placement="top" title="Editar"
                                                     onclick="editarModal({{ $item->client_user_id }})"
